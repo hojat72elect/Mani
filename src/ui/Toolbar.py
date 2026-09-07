@@ -15,11 +15,11 @@ class Toolbar(QToolBar):
         self.zoomOutAction = QAction("Zoom -", self)
 
         for action in (
-                self.openAction,
-                self.saveAction,
-                self.saveAsAction,
-                self.undoAction,
-                self.zoomInAction,
-                self.zoomOutAction
+            self.openAction,
+            self.saveAction,
+            self.saveAsAction,
+            self.undoAction,
+            self.zoomInAction,
+            self.zoomOutAction,
         ):
             self.addAction(action)

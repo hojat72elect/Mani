@@ -4,9 +4,9 @@ from domain.EffectSettings import EffectSettings
 
 @dataclass
 class Project:
-    original_image: Image | None = None
+    originalImage: Image | None = None
     effectSettings: EffectSettings = field(default_factory=EffectSettings)
     filePath: str | None = None
 
-    def reset_effects(self):
+    def resetEffects(self):
         self.effectSettings = EffectSettings()

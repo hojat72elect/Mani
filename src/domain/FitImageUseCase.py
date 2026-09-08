@@ -1,7 +1,6 @@
-from PIL import ImageOps
-from PIL.Image import Image
+from PIL import ImageOps, Image
 
-def FitImageUseCase(image: Image, size):
+def FitImageUseCase(image: Image.Image, size):
     width, height = size
     if width <= 0 or height <= 0:
         return image

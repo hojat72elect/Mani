@@ -2,7 +2,6 @@ from PIL import ImageEnhance, ImageFilter, ImageOps
 from PIL.Image import Image
 from domain.EffectSettings import EffectSettings
 
-
 def ApplyEffectsUseCase(image: Image, settings: EffectSettings) -> Image:
     result = image.copy()
 

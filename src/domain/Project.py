@@ -1,10 +1,10 @@
 from dataclasses import dataclass, field
-from PIL.Image import Image
+from PIL import Image
 from domain.EffectSettings import EffectSettings
 
 @dataclass
 class Project:
-    originalImage: Image | None = None
+    originalImage: Image.Image | None = None
     effectSettings: EffectSettings = field(default_factory=EffectSettings)
     filePath: str | None = None
 

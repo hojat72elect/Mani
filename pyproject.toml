@@ -12,5 +12,5 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "black>=26.5.1",
+    "pyrefly>=1.2.0",
 ]

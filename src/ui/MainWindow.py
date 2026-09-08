@@ -249,6 +249,7 @@ class MainWindow(QMainWindow):
             image = LoadImageUseCase(path)
         except Exception as e:
             QMessageBox.critical(self, "Open Error", f"Could not open image:\n{e}")
+            print(e)
             return
 
         self.project.originalImage = image

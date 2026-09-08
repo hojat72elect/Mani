@@ -1,8 +1,7 @@
 from PIL.Image import Image
 from PySide6.QtGui import QImage
 
-
-def  PillowImageToQImageUseCase(image: Image):
+def PillowImageToQImageUseCase(image: Image):
     rgba = image.convert("RGBA")
     data = rgba.tobytes("raw", "RGBA")
     return QImage(

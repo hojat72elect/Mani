@@ -1,7 +1,8 @@
 from copy import deepcopy
+from domain.Project import Project
 
 class EffectsHistory:
-    def __init__(self, project):
+    def __init__(self, project: Project):
         self.project = project
         self.undoStack = []
         self.redoStack = []

@@ -12,7 +12,7 @@ def Timber(func):
         result = func(*args, **kwargs)
         endTime = time.perf_counter()
 
-        elapsedTime = endTime - startTime
-        logging.info(f"Function '{func.__name__}' took {elapsedTime:0.6f} seconds to complete.")
+        elapsedTime = (endTime - startTime) * 1000
+        logging.info(f"Function '{func.__name__}' took {elapsedTime:0.1f} milliseconds to complete.")
         return result
     return wrapper

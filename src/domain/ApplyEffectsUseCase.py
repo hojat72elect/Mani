@@ -1,9 +1,7 @@
 from PIL import ImageEnhance, ImageFilter, ImageOps
 from PIL.Image import Image
-from Timber import Timber
 from domain.EffectSettings import EffectSettings
 
-@Timber
 def ApplyEffectsUseCase(image: Image, settings: EffectSettings) -> Image:
     result = image.copy()
 

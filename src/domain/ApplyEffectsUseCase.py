@@ -7,6 +7,9 @@ from domain.EffectSettings import EffectSettings
 def ApplyEffectsUseCase(image: Image, settings: EffectSettings) -> Image:
     result = image.copy()
 
+    if settings.grayscale:
+        result = ImageOps.grayscale(result).convert("RGBA")
+
     if settings.brightness != 1.0:
         result = ImageEnhance.Brightness(result).enhance(settings.brightness)
 
@@ -18,9 +21,5 @@ def ApplyEffectsUseCase(image: Image, settings: EffectSettings) -> Image:
 
     if settings.blur > 0:
         result = result.filter(ImageFilter.GaussianBlur(settings.blur))
-
-    if settings.grayscale:
-        gray = ImageOps.grayscale(result)
-        result = gray.convert("RGBA")
 
     return result

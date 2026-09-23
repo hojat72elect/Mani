@@ -25,7 +25,6 @@ from domain.Project import Project
 from ui.Canvas import Canvas
 from ui.Toolbar import Toolbar
 
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()

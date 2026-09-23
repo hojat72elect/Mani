@@ -1,7 +1,9 @@
 from pathlib import Path
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction, QKeySequence
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtGui import QAction, QKeySequence, QPixmap
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QGroupBox, QFormLayout, QSlider, QCheckBox, QPushButton, QFileDialog, QMessageBox
+
+from EffectsWorker import EffectsWorker
 from domain.ApplyEffectsUseCase import ApplyEffectsUseCase
 from domain.EffectsHistory import EffectsHistory
 from domain.LoadImageUseCase import LoadImageUseCase
@@ -24,6 +26,11 @@ class MainWindow(QMainWindow):
         self._buildMenus()
         self._connectSignals()
         self._updateUiState()
+
+        self._renderTimer = QTimer()
+        self._renderTimer.setSingleShot(True)
+        self._renderTimer.setInterval(50)  # we're setting a 50ms debounce on the _render function of this window
+        self._renderTimer.timeout.connect(self._render)
 
     def _buildUi(self):
         self.toolbar = Toolbar(self)
@@ -241,7 +248,7 @@ class MainWindow(QMainWindow):
         settings.blur = float(self.blur.value())
         settings.grayscale = self.grayscale.isChecked()
 
-        self._render()
+        self._renderTimer.start()
         self._updateUiState()
 
     def _syncControlsFromProject(self):
@@ -261,15 +268,17 @@ class MainWindow(QMainWindow):
             self.canvas.clearImage()
             return
 
-        rendered = ApplyEffectsUseCase(
-            self.project.originalImage,
-            self.project.effectSettings,
-        )
-        self.canvas.setPixmap(
-            __import__("PySide6.QtGui", fromlist=["QPixmap"]).QPixmap.fromImage(
-                PillowImageToQImageUseCase(rendered)
-            )
-        )
+        # Before making a new worker, we cancel all the previous ones (if they exist)
+        if hasattr(self, "_currentWorker") and self._currentWorker is not None:
+            self._currentWorker.terminate()
+
+        self._currentWorker = EffectsWorker(self.project.originalImage, self.project.effectSettings)
+        self._currentWorker.finished.connect(self._onRenderComplete)
+        self._currentWorker.start()
+
+    def _onRenderComplete(self, rendered):
+        self.canvas.setPixmap(QPixmap.fromImage(PillowImageToQImageUseCase(rendered)))
+        self._currentWorker = None
 
     def resetEffects(self):
         if self.project.originalImage is None:

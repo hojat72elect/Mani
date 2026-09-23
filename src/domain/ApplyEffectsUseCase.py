@@ -1,6 +1,5 @@
 from PIL import ImageEnhance, ImageFilter, ImageOps
 from PIL.Image import Image
-
 from Timber import Timber
 from domain.EffectSettings import EffectSettings
 

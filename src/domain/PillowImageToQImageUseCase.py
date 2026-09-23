@@ -1,6 +1,8 @@
 from PIL import Image
 from PySide6.QtGui import QImage
+from Timber import Timber
 
+@Timber
 def PillowImageToQImageUseCase(image: Image.Image):
     """
     You give this function a pillow's "Image" and it will return a QT's "QImage" which you can show on a canvas.

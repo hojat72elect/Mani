@@ -1,22 +1,7 @@
 from pathlib import Path
-
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QKeySequence
-from PySide6.QtWidgets import (
-    QMainWindow,
-    QWidget,
-    QHBoxLayout,
-    QVBoxLayout,
-    QLabel,
-    QGroupBox,
-    QFormLayout,
-    QSlider,
-    QCheckBox,
-    QPushButton,
-    QFileDialog,
-    QMessageBox,
-)
-
+from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QGroupBox, QFormLayout, QSlider, QCheckBox, QPushButton, QFileDialog, QMessageBox
 from domain.ApplyEffectsUseCase import ApplyEffectsUseCase
 from domain.EffectsHistory import EffectsHistory
 from domain.LoadImageUseCase import LoadImageUseCase
@@ -343,7 +328,7 @@ class MainWindow(QMainWindow):
             return
 
         if selectedFilter.startswith("JPEG") and not path.lower().endswith(
-            (".jpg", ".jpeg")
+                (".jpg", ".jpeg")
         ):
             path += ".jpg"
         elif selectedFilter.startswith("WebP") and not path.lower().endswith(".webp"):

@@ -12,5 +12,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-
+    "ruff>=0.16.8",
 ]
+
+[tool.ruff.lint]
+ignore = ["I001"]

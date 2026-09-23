@@ -118,23 +118,6 @@ class MainWindow(QMainWindow):
         zoomLayout.addLayout(zoomButtons)
         layout.addWidget(zoomGroup)
 
-        info = QLabel(
-            "Alpha 1\n\n"
-            "Implemented:\n"
-            "• Open / Save / Export\n"
-            "• Brightness\n"
-            "• Contrast\n"
-            "• Saturation\n"
-            "• Blur\n"
-            "• Grayscale\n"
-            "• Zoom / Fit\n"
-            "• Undo / Redo\n\n"
-            "Text, emoji and collage are planned for the next Alpha iterations."
-        )
-        info.setWordWrap(True)
-        info.setStyleSheet("color: #666;")
-        layout.addWidget(info)
-
         layout.addStretch()
         return panel
 

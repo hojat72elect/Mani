@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
     },
     pressed: {
-    opacity: 0.7,
+        opacity: 0.7,
     },
     tabButtonView: {
         paddingVertical: Spacing.one,

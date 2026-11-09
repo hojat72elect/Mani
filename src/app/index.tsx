@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, TextInput, View,} from 'react-native';
+import {ActivityIndicator, FlatList, Pressable, RefreshControl, TextInput, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 
@@ -61,7 +61,7 @@ export default function FoldersScreen() {
     // 1. Permission Gate
     if (permissionStatus !== 'granted') {
         return (
-            <ThemedView style={styles.container}>
+            <ThemedView style={{flex: 1}}>
                 <PermissionView
                     status={permissionStatus}
                     onRequestPermission={requestPermission}
@@ -73,7 +73,7 @@ export default function FoldersScreen() {
     // 2. Folder Detail View (when user opens a folder)
     if (selectedFolder) {
         return (
-            <ThemedView style={styles.container}>
+            <ThemedView style={{flex: 1}}>
                 <FolderDetailView
                     folder={selectedFolder}
                     assets={assets}
@@ -102,19 +102,42 @@ export default function FoldersScreen() {
 
     // 3. Folders Grid View
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={{flex: 1}}>
             {/* Android Top App Bar */}
-            <View style={[styles.appBar, {paddingTop: insets.top + Spacing.two}]}>
-                <View style={styles.appBarTitleRow}>
-                    <ThemedText type="title" style={styles.appBarTitle}>
+            <View style={[{
+                paddingHorizontal: Spacing.three,
+                paddingBottom: Spacing.two,
+                gap: Spacing.two,
+                borderBottomWidth: 1,
+                borderBottomColor: 'rgba(150, 150, 150, 0.08)'
+            }, {paddingTop: insets.top + Spacing.two}]}>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <ThemedText type="title" style={{
+                        fontSize: 26,
+                        fontWeight: '700'
+                    }}>
                         Folders
                     </ThemedText>
 
-                    <View style={styles.appBarActions}>
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 4
+                    }}>
                         <Pressable
                             onPress={() => setShowSearch((prev) => !prev)}
                             android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
-                            style={styles.iconButton}>
+                            style={{
+                                width: 44,
+                                height: 44,
+                                borderRadius: 22,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
                             <SymbolView
                                 name={{ios: 'magnifyingglass', android: 'search', web: 'search'}}
                                 size={22}
@@ -125,7 +148,13 @@ export default function FoldersScreen() {
                         <Pressable
                             onPress={refreshFolders}
                             android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
-                            style={styles.iconButton}>
+                            style={{
+                                width: 44,
+                                height: 44,
+                                borderRadius: 22,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
                             <SymbolView
                                 name={{ios: 'arrow.clockwise', android: 'refresh', web: 'refresh'}}
                                 size={22}
@@ -136,14 +165,25 @@ export default function FoldersScreen() {
                 </View>
 
                 {showSearch && (
-                    <View style={[styles.searchBar, {backgroundColor: theme.backgroundElement}]}>
+                    <View style={[{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: Spacing.three,
+                        paddingVertical: Spacing.one + 4,
+                        borderRadius: 24,
+                        gap: Spacing.two
+                    }, {backgroundColor: theme.backgroundElement}]}>
                         <SymbolView
                             name={{ios: 'magnifyingglass', android: 'search', web: 'search'}}
                             size={18}
                             tintColor={theme.textSecondary}
                         />
                         <TextInput
-                            style={[styles.searchInput, {color: theme.text}]}
+                            style={[{
+                                flex: 1,
+                                fontSize: 15,
+                                padding: 0
+                            }, {color: theme.text}]}
                             placeholder="Search folders..."
                             placeholderTextColor={theme.textSecondary}
                             value={searchQuery}
@@ -167,23 +207,35 @@ export default function FoldersScreen() {
 
             {/* Folders 2-Column Grid */}
             {isLoadingFolders && allFoldersList.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <ActivityIndicator size="large" color="#208AEF"/>
-                    <ThemedText style={styles.loadingText} themeColor="textSecondary">
+                    <ThemedText style={{marginTop: Spacing.two}} themeColor="textSecondary">
                         Scanning device folders...
                     </ThemedText>
                 </View>
             ) : filteredFolders.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <SymbolView
                         name={{ios: 'folder', android: 'folder_open', web: 'folder'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />
-                    <ThemedText type="subtitle" style={styles.emptyTitle}>
+                    <ThemedText type="subtitle" style={{marginTop: Spacing.two}}>
                         No folders found
                     </ThemedText>
-                    <ThemedText style={styles.emptySubtitle} themeColor="textSecondary">
+                    <ThemedText style={{textAlign: 'center'}} themeColor="textSecondary">
                         {searchQuery
                             ? `No folders matching "${searchQuery}"`
                             : 'No media folders detected on this device.'}
@@ -201,7 +253,7 @@ export default function FoldersScreen() {
                         />
                     )}
                     contentContainerStyle={[
-                        styles.gridContent,
+                        {padding: Spacing.one},
                         {paddingBottom: insets.bottom + BottomTabInset + Spacing.four},
                     ]}
                     refreshControl={
@@ -216,69 +268,3 @@ export default function FoldersScreen() {
         </ThemedView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    appBar: {
-        paddingHorizontal: Spacing.three,
-        paddingBottom: Spacing.two,
-        gap: Spacing.two,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(150, 150, 150, 0.08)',
-    },
-    appBarTitleRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    appBarTitle: {
-        fontSize: 26,
-        fontWeight: '700',
-    },
-    appBarActions: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 4,
-    },
-    iconButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    searchBar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: Spacing.three,
-        paddingVertical: Spacing.one + 4,
-        borderRadius: 24,
-        gap: Spacing.two,
-    },
-    searchInput: {
-        flex: 1,
-        fontSize: 15,
-        padding: 0,
-    },
-    gridContent: {
-        padding: Spacing.one,
-    },
-    centerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: Spacing.four,
-        gap: Spacing.two,
-    },
-    loadingText: {
-        marginTop: Spacing.two,
-    },
-    emptyTitle: {
-        marginTop: Spacing.two,
-    },
-    emptySubtitle: {
-        textAlign: 'center',
-    },
-});

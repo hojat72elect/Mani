@@ -7,9 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "mani",
     "userInterfaceStyle": "automatic",
-    "ios": {
-      "icon": "./assets/expo.icon"
-    },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -28,10 +25,6 @@
         "android.permission.READ_MEDIA_AUDIO"
       ],
       "package": "com.hojat72elect.mani"
-    },
-    "web": {
-      "output": "server",
-      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",

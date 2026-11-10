@@ -110,77 +110,12 @@ export async function getFoldersWithCoversAsync(): Promise<{
 /**
  * Fetch media assets within a specific folder (or all folders) with pagination and media filtering
  */
-export async function getAssetsPageAsync({
-                                             folderId,
-                                             mediaFilter = 'all',
-                                             first = 50,
-                                             after,
-                                         }: {
+export async function getAssetsPageAsync({folderId, mediaFilter = 'all', first = 50, after}: {
     folderId?: string;
     mediaFilter?: MediaFilterType;
     first?: number;
     after?: string;
 }): Promise<PaginatedAssets> {
-    if (Platform.OS === 'web') {
-        const mockAssets: MediaLibrary.Asset[] = [
-            {
-                id: 'web-1',
-                filename: 'nature_photo.jpg',
-                uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1080',
-                mediaType: 'photo',
-                width: 1920,
-                height: 1080,
-                creationTime: Date.now() - 1000 * 60 * 30,
-                modificationTime: Date.now() - 1000 * 60 * 30,
-                duration: 0,
-            },
-            {
-                id: 'web-2',
-                filename: 'landscape_video.mp4',
-                uri: 'https://images.unsplash.com/photo-1511497584788-87676104235f?w=1080',
-                mediaType: 'video',
-                width: 1920,
-                height: 1080,
-                creationTime: Date.now() - 1000 * 60 * 120,
-                modificationTime: Date.now() - 1000 * 60 * 120,
-                duration: 75,
-            },
-            {
-                id: 'web-3',
-                filename: 'urban_architecture.jpg',
-                uri: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1080',
-                mediaType: 'photo',
-                width: 1080,
-                height: 1920,
-                creationTime: Date.now() - 1000 * 3600 * 24,
-                modificationTime: Date.now() - 1000 * 3600 * 24,
-                duration: 0,
-            },
-            {
-                id: 'web-4',
-                filename: 'sunset_clip.mp4',
-                uri: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=1080',
-                mediaType: 'video',
-                width: 1920,
-                height: 1080,
-                creationTime: Date.now() - 1000 * 3600 * 48,
-                modificationTime: Date.now() - 1000 * 3600 * 48,
-                duration: 134,
-            },
-        ];
-
-        const filtered = mockAssets.filter((a) => {
-            if (mediaFilter === 'photo') return a.mediaType === 'photo';
-            if (mediaFilter === 'video') return a.mediaType === 'video';
-            return true;
-        });
-
-        return {
-            assets: filtered,
-            hasNextPage: false,
-            totalCount: filtered.length,
-        };
-    }
 
     const mediaTypes: MediaLibrary.MediaTypeValue[] =
         mediaFilter === 'photo'
@@ -211,28 +146,9 @@ export async function getAssetsPageAsync({
 }
 
 /**
- * Get single asset full details including EXIF and local path
- */
-export async function getAssetInfoAsync(
-    assetId: string
-): Promise<MediaLibrary.AssetInfo | null> {
-    if (Platform.OS === 'web') {
-        return null;
-    }
-    try {
-        return await MediaLibrary.getAssetInfoAsync(assetId);
-    } catch {
-        return null;
-    }
-}
-
-/**
  * Delete one or more assets with native permission confirmation
  */
 export async function deleteAssetsAsync(assetIds: string[]): Promise<boolean> {
-    if (Platform.OS === 'web') {
-        return true;
-    }
     return await MediaLibrary.deleteAssetsAsync(assetIds);
 }
 
@@ -265,14 +181,4 @@ export function formatMediaDate(timestamp: number): string {
         day: 'numeric',
         year: 'numeric',
     });
-}
-
-/**
- * Helper to format file size in KB/MB
- */
-export function formatFileSize(bytes?: number): string {
-    if (!bytes || bytes <= 0) return '';
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }

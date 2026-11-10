@@ -1,7 +1,6 @@
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {useEffect, useRef, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
-
 import {
     checkMediaPermissionsAsync,
     deleteAssetsAsync,

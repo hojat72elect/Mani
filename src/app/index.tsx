@@ -10,7 +10,7 @@ import {useMediaLibrary} from '@/hooks/use-media-library';
 import {PermissionView} from '@/components/gallery/permission-view';
 import {FolderCard} from '@/components/gallery/FolderCard';
 import {FolderDetailView} from '@/components/gallery/folder-detail-view';
-import {MediaViewerModal} from '@/components/gallery/media-viewer-modal';
+import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {ExpoGoBanner} from '@/components/gallery/expo-go-banner';
 
 export default function FoldersScreen() {

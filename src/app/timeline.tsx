@@ -14,8 +14,8 @@ import {
     MediaFilterType,
     requestMediaPermissionsAsync,
 } from '@/services/media-service';
-import {MediaGridItem} from '@/components/gallery/media-grid-item';
-import {MediaViewerModal} from '@/components/gallery/media-viewer-modal';
+import {MediaGridItem} from '@/components/gallery/MediaGridItem';
+import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/components/gallery/permission-view';
 import {ExpoGoBanner} from '@/components/gallery/expo-go-banner';
 
@@ -238,7 +238,6 @@ export default function TimelineScreen() {
                     renderItem={({item, index}) => (
                         <MediaGridItem
                             asset={item}
-                            numColumns={numColumns}
                             onPress={() => setActiveAssetIndex(index)}
                         />
                     )}

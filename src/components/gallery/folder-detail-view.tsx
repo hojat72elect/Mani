@@ -8,7 +8,7 @@ import {ThemedView} from '@/components/themed-view';
 import {Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {GalleryFolder, MediaFilterType} from '@/services/media-service';
-import {MediaGridItem} from './media-grid-item';
+import {MediaGridItem} from './MediaGridItem';
 
 type Props = {
     folder: GalleryFolder;
@@ -140,7 +140,6 @@ export function FolderDetailView({
                     renderItem={({item, index}) => (
                         <MediaGridItem
                             asset={item}
-                            numColumns={numColumns}
                             onPress={() => onSelectAsset(index)}
                         />
                     )}

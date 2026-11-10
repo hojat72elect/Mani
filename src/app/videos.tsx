@@ -7,16 +7,16 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {
-    checkMediaPermissionsUseCase,
     deleteAssetsUseCase,
     getAssetsPageUseCase,
-    requestMediaPermissionsUseCase,
 } from '@/services/media-service';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/components/gallery/PermissionView';
 import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
+import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";
+import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";
 
 export default function VideosScreen() {
     const theme = useTheme();

@@ -3,20 +3,6 @@ import {GalleryFolder} from "@/services/GalleryFolder";
 import {MediaFilterType} from "@/services/MediaFilterType";
 
 /**
- * Check existing media permissions.
- */
-export async function checkMediaPermissionsUseCase(): Promise<MediaLibrary.PermissionResponse> {
-    return await MediaLibrary.getPermissionsAsync(false, ['photo', 'video']);
-}
-
-/**
- * Request media permissions for images and videos.
- */
-export async function requestMediaPermissionsUseCase(): Promise<MediaLibrary.PermissionResponse> {
-    return await MediaLibrary.requestPermissionsAsync(false, ['photo', 'video']);
-}
-
-/**
  * Fetch all folders (albums) from the device and attach a preview cover URI for each folder
  */
 export async function getFoldersWithCoversUseCase(): Promise<{

@@ -1,5 +1,4 @@
 import * as MediaLibrary from 'expo-media-library/legacy';
-import {Platform} from 'react-native';
 
 export type GalleryFolder = {
     id: string;

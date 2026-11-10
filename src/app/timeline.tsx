@@ -127,10 +127,8 @@ export default function TimelineScreen() {
 
     useEffect(() => {
         if (permissionStatus === 'granted') {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadAssets(mediaFilter);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [permissionStatus, mediaFilter]);
 
     const handleDelete = async (asset: MediaLibrary.Asset) => {

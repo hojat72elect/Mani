@@ -119,10 +119,8 @@ export default function VideosScreen() {
 
     useEffect(() => {
         if (permissionStatus === 'granted') {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadVideos();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [permissionStatus]);
 
     const handleDelete = async (asset: MediaLibrary.Asset) => {

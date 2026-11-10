@@ -12,8 +12,6 @@ type Props = {
 };
 
 export function ExpoGoBanner({onRefresh}: Props) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
     const [dismissed, setDismissed] = useState(false);
 
     const isExpoGo = Constants.appOwnership === 'expo';

@@ -36,7 +36,6 @@ export function MediaViewerModal({
     // Sync index when initialIndex changes
     React.useEffect(() => {
         if (visible && initialIndex >= 0 && initialIndex < assets.length) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setCurrentIndex(initialIndex);
         }
     }, [visible, initialIndex, assets.length]);

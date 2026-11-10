@@ -137,19 +137,15 @@ export function useMediaLibrary() {
     // Auto load folders when permission granted
     useEffect(() => {
         if (permissionStatus === 'granted') {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadFolders();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [permissionStatus]);
 
     // Auto load assets when selected folder or filter changes
     useEffect(() => {
         if (selectedFolder) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadAssets(selectedFolder, mediaFilter);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedFolder, mediaFilter]);
 
     // Android hardware back button handler

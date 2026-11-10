@@ -5,7 +5,7 @@ import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
 import {formatDuration} from '@/services/media-service';
-import {Spacing} from '@/constants/theme';
+import {Spacing} from "@/constants/Spacing";
 
 export function MediaGridItem({asset, onPress}: {
     asset: MediaLibrary.Asset;

@@ -5,7 +5,6 @@ import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
-import {BottomTabInset, Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {
     checkMediaPermissionsAsync,
@@ -18,6 +17,7 @@ import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/components/gallery/PermissionView';
 import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
+import {Spacing} from "@/constants/Spacing";
 
 export default function TimelineScreen() {
     const theme = useTheme();
@@ -243,7 +243,7 @@ export default function TimelineScreen() {
                     )}
                     contentContainerStyle={[
                         styles.listContent,
-                        {paddingBottom: insets.bottom + BottomTabInset + Spacing.four},
+                        {paddingBottom: insets.bottom + 80 + Spacing.four},
                     ]}
                     onEndReached={loadMoreAssets}
                     onEndReachedThreshold={0.5}

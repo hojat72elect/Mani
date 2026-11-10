@@ -4,7 +4,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
-import {BottomTabInset, Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {useMediaLibrary} from '@/hooks/use-media-library';
 import {PermissionView} from '@/components/gallery/PermissionView';
@@ -12,6 +11,7 @@ import {FolderCard} from '@/components/gallery/FolderCard';
 import {FolderDetailView} from '@/components/gallery/FolderDetailView';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
+import {Spacing} from "@/constants/Spacing";
 
 export default function FoldersScreen() {
     const theme = useTheme();
@@ -253,7 +253,7 @@ export default function FoldersScreen() {
                     )}
                     contentContainerStyle={[
                         {padding: Spacing.one},
-                        {paddingBottom: insets.bottom + BottomTabInset + Spacing.four},
+                        {paddingBottom: insets.bottom + 80 + Spacing.four},
                     ]}
                     refreshControl={
                         <RefreshControl

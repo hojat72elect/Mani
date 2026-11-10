@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
-import {Spacing} from '@/constants/theme';
+import {Spacing} from "@/constants/Spacing";
 
 export function ExpoGoBanner({onRefresh}: { onRefresh: () => void; }) {
     const [dismissed, setDismissed] = useState(false);

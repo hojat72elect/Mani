@@ -6,10 +6,6 @@ import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
-import {
-    deleteAssetsUseCase,
-    getAssetsPageUseCase
-} from '@/services/media-service';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/components/gallery/PermissionView';
@@ -18,6 +14,8 @@ import {Spacing} from "@/constants/Spacing";
 import {MediaFilterType} from "@/services/MediaFilterType";
 import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";
 import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";
+import {getAssetsPageUseCase} from "@/services/getAssetsPageUseCase";
+import {deleteAssetsUseCase} from "@/services/deleteAssetsUseCase";
 
 export default function TimelineScreen() {
     const theme = useTheme();

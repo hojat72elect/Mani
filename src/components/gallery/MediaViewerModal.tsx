@@ -6,9 +6,9 @@ import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
-
-import {formatVideoDurationUseCase, formatMediaDateUseCase} from '@/services/media-service';
+import {formatMediaDateUseCase} from '@/services/formatMediaDateUseCase';
 import {Spacing} from "@/constants/Spacing";
+import {formatVideoDurationUseCase} from "@/services/formatVideoDurationUseCase";
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 

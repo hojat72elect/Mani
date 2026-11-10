@@ -1,6 +1,5 @@
-import * as MediaLibrary from 'expo-media-library/legacy';
 import {GalleryFolder} from "@/services/GalleryFolder";
-import {MediaFilterType} from "@/services/MediaFilterType";
+import * as MediaLibrary from 'expo-media-library/legacy';
 
 /**
  * Fetch all folders (albums) from the device and attach a preview cover URI for each folder
@@ -74,85 +73,4 @@ export async function getFoldersWithCoversUseCase(): Promise<{
         allFolder,
         folders: prioritizedFolders,
     };
-}
-
-/**
- * Fetch media assets within a specific folder (or all folders) with pagination and media filtering
- */
-export async function getAssetsPageUseCase({folderId, mediaFilter = 'all', first = 50, after}: {
-    folderId?: string;
-    mediaFilter?: MediaFilterType;
-    first?: number;
-    after?: string;
-}): Promise<{
-    assets: MediaLibrary.Asset[];
-    endCursor?: string;
-    hasNextPage: boolean;
-    totalCount: number;
-}> {
-
-    const mediaTypes: MediaLibrary.MediaTypeValue[] =
-        mediaFilter === 'photo'
-            ? [MediaLibrary.MediaType.photo]
-            : mediaFilter === 'video'
-                ? [MediaLibrary.MediaType.video]
-                : [MediaLibrary.MediaType.photo, MediaLibrary.MediaType.video];
-
-    const options: MediaLibrary.AssetsOptions = {
-        first,
-        after,
-        mediaType: mediaTypes,
-        sortBy: [MediaLibrary.SortBy.creationTime],
-    };
-
-    if (folderId && folderId !== '__all__') {
-        options.album = folderId;
-    }
-
-    const result = await MediaLibrary.getAssetsAsync(options);
-
-    return {
-        assets: result.assets,
-        endCursor: result.endCursor,
-        hasNextPage: result.hasNextPage,
-        totalCount: result.totalCount,
-    };
-}
-
-/**
- * Delete one or more assets with native permission confirmation
- */
-export async function deleteAssetsUseCase(assetIds: string[]): Promise<boolean> {
-    return await MediaLibrary.deleteAssetsAsync(assetIds);
-}
-
-/**
- * Helper to format duration in MM:SS or HH:MM:SS
- */
-export function formatVideoDurationUseCase(seconds: number): string {
-    if (!seconds || seconds <= 0) return '0:00';
-    const rounded = Math.round(seconds);
-    const hrs = Math.floor(rounded / 3600);
-    const mins = Math.floor((rounded % 3600) / 60);
-    const secs = rounded % 60;
-
-    const paddedSecs = secs < 10 ? `0${secs}` : `${secs}`;
-    if (hrs > 0) {
-        const paddedMins = mins < 10 ? `0${mins}` : `${mins}`;
-        return `${hrs}:${paddedMins}:${paddedSecs}`;
-    }
-    return `${mins}:${paddedSecs}`;
-}
-
-/**
- * Helper to format date in Android friendly format
- */
-export function formatMediaDateUseCase(timestamp: number): string {
-    if (!timestamp) return '';
-    const date = new Date(timestamp);
-    return date.toLocaleDateString(undefined, {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-    });
 }

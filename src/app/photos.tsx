@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View,} from 'react-native';
+import {ActivityIndicator, FlatList, Pressable, RefreshControl, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
@@ -149,7 +149,7 @@ export default function PhotosScreen() {
 
     if (permissionStatus !== 'granted') {
         return (
-            <ThemedView style={styles.container}>
+            <ThemedView style={{flex: 1}}>
                 <PermissionView
                     status={permissionStatus}
                     onRequestPermission={requestPermission}
@@ -159,11 +159,21 @@ export default function PhotosScreen() {
     }
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={{flex: 1}}>
             {/* App Bar */}
-            <View style={[styles.header, {paddingTop: insets.top + Spacing.two}]}>
-                <View style={styles.headerTitleBox}>
-                    <ThemedText type="title" style={styles.title}>
+            <View style={[{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: Spacing.three,
+                paddingBottom: Spacing.two,
+                borderBottomWidth: 1,
+                borderBottomColor: 'rgba(150, 150, 150, 0.08)'
+            }, {paddingTop: insets.top + Spacing.two}]}>
+                <View style={{flex: 1}}>
+                    <ThemedText type="title" style={{
+                        fontSize: 26,
+                        fontWeight: '700'
+                    }}>
                         Photos
                     </ThemedText>
                     <ThemedText type="small" themeColor="textSecondary">
@@ -174,7 +184,13 @@ export default function PhotosScreen() {
                 <Pressable
                     onPress={() => setNumColumns((prev) => (prev === 3 ? 4 : 3))}
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
-                    style={styles.actionButton}>
+                    style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: 22,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
                     <SymbolView
                         name={{ios: 'square.grid.3x3', android: 'grid_view'}}
                         size={22}
@@ -186,7 +202,12 @@ export default function PhotosScreen() {
             <ExpoGoBanner onRefresh={() => loadAssets(mediaFilter)}/>
 
             {/* Filter Chips Bar */}
-            <View style={styles.filterBar}>
+            <View style={{
+                flexDirection: 'row',
+                paddingHorizontal: Spacing.three,
+                paddingVertical: Spacing.two,
+                gap: Spacing.two
+            }}>
                 {filterOptions.map((opt) => {
                     const isSelected = mediaFilter === opt.value;
                     return (
@@ -195,7 +216,11 @@ export default function PhotosScreen() {
                             onPress={() => setMediaFilter(opt.value)}
                             android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: false}}
                             style={[
-                                styles.chip,
+                                {
+                                    paddingHorizontal: Spacing.three,
+                                    paddingVertical: Spacing.one + 2,
+                                    borderRadius: 18
+                                },
                                 {backgroundColor: isSelected ? '#208AEF' : theme.backgroundElement},
                             ]}>
                             <ThemedText
@@ -210,23 +235,35 @@ export default function PhotosScreen() {
 
             {/* Grid */}
             {isLoading && assets.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <ActivityIndicator size="large" color="#208AEF"/>
-                    <ThemedText style={styles.loadingText} themeColor="textSecondary">
+                    <ThemedText style={{marginTop: Spacing.two}} themeColor="textSecondary">
                         Loading photos and videos...
                     </ThemedText>
                 </View>
             ) : assets.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <SymbolView
                         name={{ios: 'photo', android: 'image_not_supported'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />
-                    <ThemedText type="subtitle" style={styles.emptyTitle}>
+                    <ThemedText type="subtitle" style={{marginTop: Spacing.two}}>
                         No media found
                     </ThemedText>
-                    <ThemedText style={styles.emptySubtitle} themeColor="textSecondary">
+                    <ThemedText style={{textAlign: 'center'}} themeColor="textSecondary">
                         No {mediaFilter === 'all' ? 'photos or videos' : `${mediaFilter}s`} found on your device.
                     </ThemedText>
                 </View>
@@ -243,7 +280,7 @@ export default function PhotosScreen() {
                         />
                     )}
                     contentContainerStyle={[
-                        styles.listContent,
+                        {paddingTop: Spacing.one},
                         {paddingBottom: insets.bottom + 80 + Spacing.four},
                     ]}
                     onEndReached={loadMoreAssets}
@@ -257,7 +294,10 @@ export default function PhotosScreen() {
                     }
                     ListFooterComponent={
                         isLoadingMore ? (
-                            <View style={styles.footerLoader}>
+                            <View style={{
+                                paddingVertical: Spacing.four,
+                                alignItems: 'center'
+                            }}>
                                 <ActivityIndicator size="small" color="#208AEF"/>
                             </View>
                         ) : undefined
@@ -276,65 +316,3 @@ export default function PhotosScreen() {
         </ThemedView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: Spacing.three,
-        paddingBottom: Spacing.two,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(150, 150, 150, 0.08)',
-    },
-    headerTitleBox: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 26,
-        fontWeight: '700',
-    },
-    actionButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    filterBar: {
-        flexDirection: 'row',
-        paddingHorizontal: Spacing.three,
-        paddingVertical: Spacing.two,
-        gap: Spacing.two,
-    },
-    chip: {
-        paddingHorizontal: Spacing.three,
-        paddingVertical: Spacing.one + 2,
-        borderRadius: 18,
-    },
-    listContent: {
-        paddingTop: Spacing.one,
-    },
-    centerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: Spacing.four,
-        gap: Spacing.two,
-    },
-    loadingText: {
-        marginTop: Spacing.two,
-    },
-    emptyTitle: {
-        marginTop: Spacing.two,
-    },
-    emptySubtitle: {
-        textAlign: 'center',
-    },
-    footerLoader: {
-        paddingVertical: Spacing.four,
-        alignItems: 'center',
-    },
-});

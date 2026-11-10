@@ -7,10 +7,10 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {
-    checkMediaPermissionsAsync,
-    deleteAssetsAsync,
-    getAssetsPageAsync,
-    requestMediaPermissionsAsync,
+    checkMediaPermissionsUseCase,
+    deleteAssetsUseCase,
+    getAssetsPageUseCase,
+    requestMediaPermissionsUseCase,
 } from '@/services/media-service';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
@@ -41,7 +41,7 @@ export default function VideosScreen() {
     const checkPermissions = async () => {
         setIsLoading(true);
         try {
-            const res = await checkMediaPermissionsAsync();
+            const res = await checkMediaPermissionsUseCase();
             if (res.granted) {
                 setPermissionStatus('granted');
             } else if (res.canAskAgain) {
@@ -59,7 +59,7 @@ export default function VideosScreen() {
     const requestPermission = async () => {
         setIsLoading(true);
         try {
-            const res = await requestMediaPermissionsAsync();
+            const res = await requestMediaPermissionsUseCase();
             if (res.granted) {
                 setPermissionStatus('granted');
             } else {
@@ -76,7 +76,7 @@ export default function VideosScreen() {
         if (permissionStatus !== 'granted') return;
         setIsLoading(true);
         try {
-            const result = await getAssetsPageAsync({
+            const result = await getAssetsPageUseCase({
                 mediaFilter: 'video',
                 first: 48,
             });
@@ -95,7 +95,7 @@ export default function VideosScreen() {
         if (!hasNextPage || isLoadingMore || !endCursor || permissionStatus !== 'granted') return;
         setIsLoadingMore(true);
         try {
-            const result = await getAssetsPageAsync({
+            const result = await getAssetsPageUseCase({
                 mediaFilter: 'video',
                 first: 48,
                 after: endCursor,
@@ -124,7 +124,7 @@ export default function VideosScreen() {
     }, [permissionStatus]);
 
     const handleDelete = async (asset: MediaLibrary.Asset) => {
-        const success = await deleteAssetsAsync([asset.id]);
+        const success = await deleteAssetsUseCase([asset.id]);
         if (success) {
             setVideos((prev) => prev.filter((a) => a.id !== asset.id));
             setTotalCount((prev) => Math.max(0, prev - 1));

@@ -2,14 +2,14 @@ import * as MediaLibrary from 'expo-media-library/legacy';
 import {useEffect, useRef, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
 import {
-    checkMediaPermissionsAsync,
-    deleteAssetsAsync,
-    GalleryFolder,
-    getAssetsPageAsync,
-    getFoldersWithCoversAsync,
-    MediaFilterType,
-    requestMediaPermissionsAsync,
+    checkMediaPermissionsUseCase,
+    deleteAssetsUseCase,
+    getAssetsPageUseCase,
+    getFoldersWithCoversUseCase,
+    requestMediaPermissionsUseCase,
 } from '@/services/media-service';
+import {GalleryFolder} from "@/services/GalleryFolder";
+import {MediaFilterType} from "@/services/MediaFilterType";
 
 export function useMediaLibrary() {
     const [permissionStatus, setPermissionStatus] = useState<
@@ -38,7 +38,7 @@ export function useMediaLibrary() {
     const checkPermissions = async () => {
         setIsLoadingFolders(true);
         try {
-            const res = await checkMediaPermissionsAsync();
+            const res = await checkMediaPermissionsUseCase();
             if (res.granted) {
                 setPermissionStatus('granted');
             } else if (res.canAskAgain) {
@@ -56,7 +56,7 @@ export function useMediaLibrary() {
     const requestPermission = async () => {
         setIsLoadingFolders(true);
         try {
-            const res = await requestMediaPermissionsAsync();
+            const res = await requestMediaPermissionsUseCase();
             if (res.granted) {
                 setPermissionStatus('granted');
             } else {
@@ -74,7 +74,7 @@ export function useMediaLibrary() {
         if (permissionStatus !== 'granted') return;
         setIsLoadingFolders(true);
         try {
-            const data = await getFoldersWithCoversAsync();
+            const data = await getFoldersWithCoversUseCase();
             setAllFolder(data.allFolder);
             setFolders(data.folders);
         } catch (err) {
@@ -89,7 +89,7 @@ export function useMediaLibrary() {
         if (permissionStatus !== 'granted') return;
         setIsLoadingAssets(true);
         try {
-            const result = await getAssetsPageAsync({
+            const result = await getAssetsPageUseCase({
                 folderId: folder?.id,
                 mediaFilter: filter,
                 first: 40,
@@ -110,7 +110,7 @@ export function useMediaLibrary() {
         if (!hasNextPage || isLoadingMore || !endCursor || permissionStatus !== 'granted') return;
         setIsLoadingMore(true);
         try {
-            const result = await getAssetsPageAsync({
+            const result = await getAssetsPageUseCase({
                 folderId: selectedFolder?.id,
                 mediaFilter,
                 first: 40,
@@ -180,7 +180,7 @@ export function useMediaLibrary() {
                     style: 'destructive',
                     onPress: async () => {
                         try {
-                            const success = await deleteAssetsAsync([asset.id]);
+                            const success = await deleteAssetsUseCase([asset.id]);
                             if (success) {
                                 setAssets((prev) => prev.filter((a) => a.id !== asset.id));
                                 if (activeAssetIndex !== null) {

@@ -5,8 +5,8 @@ import {SymbolView} from 'expo-symbols';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
-import {GalleryFolder} from '@/services/media-service';
 import {Spacing} from "@/constants/Spacing";
+import {GalleryFolder} from "@/services/GalleryFolder";
 
 export function FolderCard({folder, onPress}: {
     folder: GalleryFolder;

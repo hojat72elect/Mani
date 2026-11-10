@@ -7,7 +7,7 @@ import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
 
-import {formatDuration, formatMediaDate} from '@/services/media-service';
+import {formatVideoDurationUseCase, formatMediaDateUseCase} from '@/services/media-service';
 import {Spacing} from "@/constants/Spacing";
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
@@ -136,7 +136,7 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                                         fontSize: 13,
                                         fontWeight: '600'
                                     }}>
-                                        Video • {formatDuration(item.duration)}
+                                        Video • {formatVideoDurationUseCase(item.duration)}
                                     </ThemedText>
                                 </View>
                             )}
@@ -187,7 +187,7 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                                 color: 'rgba(255, 255, 255, 0.7)',
                                 fontSize: 12
                             }}>
-                                {currentIndex + 1} of {assets.length} • {formatMediaDate(currentAsset.creationTime)}
+                                {currentIndex + 1} of {assets.length} • {formatMediaDateUseCase(currentAsset.creationTime)}
                             </ThemedText>
                         </View>
 
@@ -306,7 +306,7 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                                 flex: 1,
                                 fontSize: 13
                             }}>
-                                {isVideo ? `Video (${formatDuration(currentAsset.duration)})` : 'Photo'}
+                                {isVideo ? `Video (${formatVideoDurationUseCase(currentAsset.duration)})` : 'Photo'}
                             </ThemedText>
                         </View>
 

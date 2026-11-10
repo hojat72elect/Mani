@@ -1,41 +1,25 @@
 import * as MediaLibrary from 'expo-media-library/legacy';
-
-export type GalleryFolder = {
-    id: string;
-    title: string;
-    assetCount: number;
-    coverUri?: string;
-    latestMediaType?: MediaLibrary.MediaTypeValue;
-    isVirtual?: boolean;
-};
-
-export type MediaFilterType = 'all' | 'photo' | 'video';
-
-export type PaginatedAssets = {
-    assets: MediaLibrary.Asset[];
-    endCursor?: string;
-    hasNextPage: boolean;
-    totalCount: number;
-};
+import {GalleryFolder} from "@/services/GalleryFolder";
+import {MediaFilterType} from "@/services/MediaFilterType";
 
 /**
  * Check existing media permissions.
  */
-export async function checkMediaPermissionsAsync(): Promise<MediaLibrary.PermissionResponse> {
+export async function checkMediaPermissionsUseCase(): Promise<MediaLibrary.PermissionResponse> {
     return await MediaLibrary.getPermissionsAsync(false, ['photo', 'video']);
 }
 
 /**
  * Request media permissions for images and videos.
  */
-export async function requestMediaPermissionsAsync(): Promise<MediaLibrary.PermissionResponse> {
+export async function requestMediaPermissionsUseCase(): Promise<MediaLibrary.PermissionResponse> {
     return await MediaLibrary.requestPermissionsAsync(false, ['photo', 'video']);
 }
 
 /**
  * Fetch all folders (albums) from the device and attach a preview cover URI for each folder
  */
-export async function getFoldersWithCoversAsync(): Promise<{
+export async function getFoldersWithCoversUseCase(): Promise<{
     allFolder: GalleryFolder;
     folders: GalleryFolder[];
 }> {
@@ -109,12 +93,17 @@ export async function getFoldersWithCoversAsync(): Promise<{
 /**
  * Fetch media assets within a specific folder (or all folders) with pagination and media filtering
  */
-export async function getAssetsPageAsync({folderId, mediaFilter = 'all', first = 50, after}: {
+export async function getAssetsPageUseCase({folderId, mediaFilter = 'all', first = 50, after}: {
     folderId?: string;
     mediaFilter?: MediaFilterType;
     first?: number;
     after?: string;
-}): Promise<PaginatedAssets> {
+}): Promise<{
+    assets: MediaLibrary.Asset[];
+    endCursor?: string;
+    hasNextPage: boolean;
+    totalCount: number;
+}> {
 
     const mediaTypes: MediaLibrary.MediaTypeValue[] =
         mediaFilter === 'photo'
@@ -147,14 +136,14 @@ export async function getAssetsPageAsync({folderId, mediaFilter = 'all', first =
 /**
  * Delete one or more assets with native permission confirmation
  */
-export async function deleteAssetsAsync(assetIds: string[]): Promise<boolean> {
+export async function deleteAssetsUseCase(assetIds: string[]): Promise<boolean> {
     return await MediaLibrary.deleteAssetsAsync(assetIds);
 }
 
 /**
  * Helper to format duration in MM:SS or HH:MM:SS
  */
-export function formatDuration(seconds: number): string {
+export function formatVideoDurationUseCase(seconds: number): string {
     if (!seconds || seconds <= 0) return '0:00';
     const rounded = Math.round(seconds);
     const hrs = Math.floor(rounded / 3600);
@@ -172,7 +161,7 @@ export function formatDuration(seconds: number): string {
 /**
  * Helper to format date in Android friendly format
  */
-export function formatMediaDate(timestamp: number): string {
+export function formatMediaDateUseCase(timestamp: number): string {
     if (!timestamp) return '';
     const date = new Date(timestamp);
     return date.toLocaleDateString(undefined, {

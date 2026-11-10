@@ -4,7 +4,7 @@ import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
-import {formatDuration} from '@/services/media-service';
+import {formatVideoDurationUseCase} from '@/services/media-service';
 import {Spacing} from "@/constants/Spacing";
 
 export function MediaGridItem({asset, onPress}: {
@@ -62,7 +62,7 @@ export function MediaGridItem({asset, onPress}: {
                         fontSize: 11,
                         fontWeight: '600'
                     }}>
-                        {formatDuration(asset.duration)}
+                        {formatVideoDurationUseCase(asset.duration)}
                     </ThemedText>
                 </View>
             )}

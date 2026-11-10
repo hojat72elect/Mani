@@ -1,0 +1,1 @@
+export type MediaFilterType = 'all' | 'photo' | 'video';

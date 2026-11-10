@@ -7,17 +7,17 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {
-    checkMediaPermissionsAsync,
-    deleteAssetsAsync,
-    getAssetsPageAsync,
-    MediaFilterType,
-    requestMediaPermissionsAsync,
+    checkMediaPermissionsUseCase,
+    deleteAssetsUseCase,
+    getAssetsPageUseCase,
+    requestMediaPermissionsUseCase,
 } from '@/services/media-service';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/components/gallery/PermissionView';
 import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
+import {MediaFilterType} from "@/services/MediaFilterType";
 
 export default function TimelineScreen() {
     const theme = useTheme();
@@ -49,7 +49,7 @@ export default function TimelineScreen() {
     const checkPermissions = async () => {
         setIsLoading(true);
         try {
-            const res = await checkMediaPermissionsAsync();
+            const res = await checkMediaPermissionsUseCase();
             if (res.granted) {
                 setPermissionStatus('granted');
             } else if (res.canAskAgain) {
@@ -67,7 +67,7 @@ export default function TimelineScreen() {
     const requestPermission = async () => {
         setIsLoading(true);
         try {
-            const res = await requestMediaPermissionsAsync();
+            const res = await requestMediaPermissionsUseCase();
             if (res.granted) {
                 setPermissionStatus('granted');
             } else {
@@ -84,7 +84,7 @@ export default function TimelineScreen() {
         if (permissionStatus !== 'granted') return;
         setIsLoading(true);
         try {
-            const result = await getAssetsPageAsync({
+            const result = await getAssetsPageUseCase({
                 mediaFilter: filter,
                 first: 48,
             });
@@ -103,7 +103,7 @@ export default function TimelineScreen() {
         if (!hasNextPage || isLoadingMore || !endCursor || permissionStatus !== 'granted') return;
         setIsLoadingMore(true);
         try {
-            const result = await getAssetsPageAsync({
+            const result = await getAssetsPageUseCase({
                 mediaFilter,
                 first: 48,
                 after: endCursor,
@@ -132,7 +132,7 @@ export default function TimelineScreen() {
     }, [permissionStatus, mediaFilter]);
 
     const handleDelete = async (asset: MediaLibrary.Asset) => {
-        const success = await deleteAssetsAsync([asset.id]);
+        const success = await deleteAssetsUseCase([asset.id]);
         if (success) {
             setAssets((prev) => prev.filter((a) => a.id !== asset.id));
             setTotalCount((prev) => Math.max(0, prev - 1));

@@ -10,20 +10,6 @@ import {useTheme} from '@/hooks/use-theme';
 import {GalleryFolder, MediaFilterType} from '@/services/media-service';
 import {MediaGridItem} from './MediaGridItem';
 
-type Props = {
-    folder: GalleryFolder;
-    assets: MediaLibrary.Asset[];
-    totalCount: number;
-    isLoading: boolean;
-    isLoadingMore: boolean;
-    mediaFilter: MediaFilterType;
-    onFilterChange: (filter: MediaFilterType) => void;
-    onBack: () => void;
-    onSelectAsset: (index: number) => void;
-    onRefresh: () => void;
-    onLoadMore: () => void;
-};
-
 export function FolderDetailView({
                                      folder,
                                      assets,
@@ -35,8 +21,20 @@ export function FolderDetailView({
                                      onBack,
                                      onSelectAsset,
                                      onRefresh,
-                                     onLoadMore,
-                                 }: Props) {
+                                     onLoadMore
+                                 }: {
+    folder: GalleryFolder;
+    assets: MediaLibrary.Asset[];
+    totalCount: number;
+    isLoading: boolean;
+    isLoadingMore: boolean;
+    mediaFilter: MediaFilterType;
+    onFilterChange: (filter: MediaFilterType) => void;
+    onBack: () => void;
+    onSelectAsset: (index: number) => void;
+    onRefresh: () => void;
+    onLoadMore: () => void;
+}) {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const [numColumns, setNumColumns] = useState<3 | 4>(3);
@@ -48,13 +46,27 @@ export function FolderDetailView({
     ];
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={{flex: 1}}>
             {/* Top Header App Bar */}
-            <View style={[styles.header, {paddingTop: insets.top + Spacing.two}]}>
+            <View style={[{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: Spacing.two,
+                paddingBottom: Spacing.two,
+                gap: Spacing.two,
+                borderBottomWidth: 1,
+                borderBottomColor: 'rgba(150, 150, 150, 0.1)'
+            }, {paddingTop: insets.top + Spacing.two}]}>
                 <Pressable
                     onPress={onBack}
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
-                    style={styles.backButton}>
+                    style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: 22,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
                     <SymbolView
                         name={{ios: 'arrow.left', android: 'arrow_back'}}
                         size={24}
@@ -62,7 +74,7 @@ export function FolderDetailView({
                     />
                 </Pressable>
 
-                <View style={styles.headerTitleContainer}>
+                <View style={{flex: 1}}>
                     <ThemedText type="subtitle" numberOfLines={1}>
                         {folder.title}
                     </ThemedText>
@@ -75,7 +87,13 @@ export function FolderDetailView({
                 <Pressable
                     onPress={() => setNumColumns((prev) => (prev === 3 ? 4 : 3))}
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
-                    style={styles.actionButton}>
+                    style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: 22,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
                     <SymbolView
                         name={{ios: 'square.grid.3x3', android: 'grid_view'}}
                         size={22}
@@ -84,8 +102,13 @@ export function FolderDetailView({
                 </Pressable>
             </View>
 
-            {/* Filter Chips Bar */}
-            <View style={styles.filterBar}>
+            {/* The filtering chips in the top bar. */}
+            <View style={{
+                flexDirection: 'row',
+                paddingHorizontal: Spacing.three,
+                paddingVertical: Spacing.two,
+                gap: Spacing.two
+            }}>
                 {filterOptions.map((opt) => {
                     const isSelected = mediaFilter === opt.value;
                     return (
@@ -94,7 +117,11 @@ export function FolderDetailView({
                             onPress={() => onFilterChange(opt.value)}
                             android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: false}}
                             style={[
-                                styles.chip,
+                                {
+                                    paddingHorizontal: Spacing.three,
+                                    paddingVertical: Spacing.one + 2,
+                                    borderRadius: 18
+                                },
                                 {
                                     backgroundColor: isSelected ? '#208AEF' : theme.backgroundElement,
                                 },
@@ -111,23 +138,35 @@ export function FolderDetailView({
 
             {/* Grid of Assets */}
             {isLoading && assets.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <ActivityIndicator size="large" color="#208AEF"/>
-                    <ThemedText style={styles.loadingText} themeColor="textSecondary">
+                    <ThemedText style={{marginTop: Spacing.two}} themeColor="textSecondary">
                         Loading folder media...
                     </ThemedText>
                 </View>
             ) : assets.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <SymbolView
                         name={{ios: 'photo', android: 'image_not_supported'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />
-                    <ThemedText type="subtitle" style={styles.emptyTitle}>
+                    <ThemedText type="subtitle" style={{marginTop: Spacing.two}}>
                         No media found
                     </ThemedText>
-                    <ThemedText style={styles.emptySubtitle} themeColor="textSecondary">
+                    <ThemedText style={{textAlign: 'center'}} themeColor="textSecondary">
                         This folder does not contain any {mediaFilter === 'all' ? 'media' : `${mediaFilter}s`}.
                     </ThemedText>
                 </View>
@@ -144,7 +183,7 @@ export function FolderDetailView({
                         />
                     )}
                     contentContainerStyle={[
-                        styles.listContent,
+                        {paddingTop: Spacing.one,},
                         {paddingBottom: insets.bottom + Spacing.six},
                     ]}
                     onEndReached={onLoadMore}
@@ -158,7 +197,10 @@ export function FolderDetailView({
                     }
                     ListFooterComponent={
                         isLoadingMore ? (
-                            <View style={styles.footerLoader}>
+                            <View style={{
+                                paddingVertical: Spacing.four,
+                                alignItems: 'center'
+                            }}>
                                 <ActivityIndicator size="small" color="#208AEF"/>
                             </View>
                         ) : undefined
@@ -168,69 +210,3 @@ export function FolderDetailView({
         </ThemedView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: Spacing.two,
-        paddingBottom: Spacing.two,
-        gap: Spacing.two,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(150, 150, 150, 0.1)',
-    },
-    backButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    headerTitleContainer: {
-        flex: 1,
-    },
-    actionButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    filterBar: {
-        flexDirection: 'row',
-        paddingHorizontal: Spacing.three,
-        paddingVertical: Spacing.two,
-        gap: Spacing.two,
-    },
-    chip: {
-        paddingHorizontal: Spacing.three,
-        paddingVertical: Spacing.one + 2,
-        borderRadius: 18,
-    },
-    listContent: {
-        paddingTop: Spacing.one,
-    },
-    centerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: Spacing.four,
-        gap: Spacing.two,
-    },
-    loadingText: {
-        marginTop: Spacing.two,
-    },
-    emptyTitle: {
-        marginTop: Spacing.two,
-    },
-    emptySubtitle: {
-        textAlign: 'center',
-    },
-    footerLoader: {
-        paddingVertical: Spacing.four,
-        alignItems: 'center',
-    },
-});

@@ -9,7 +9,7 @@ import {useTheme} from '@/hooks/use-theme';
 import {useMediaLibrary} from '@/hooks/use-media-library';
 import {PermissionView} from '@/components/gallery/PermissionView';
 import {FolderCard} from '@/components/gallery/FolderCard';
-import {FolderDetailView} from '@/components/gallery/folder-detail-view';
+import {FolderDetailView} from '@/components/gallery/FolderDetailView';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {ExpoGoBanner} from '@/components/gallery/expo-go-banner';
 
@@ -102,7 +102,7 @@ export default function FoldersScreen() {
     // 3. Folders Grid View
     return (
         <ThemedView style={{flex: 1}}>
-           {/*The top bar of the app.*/}
+            {/*The top bar of the app.*/}
             <View style={[{
                 paddingHorizontal: Spacing.three,
                 paddingBottom: Spacing.two,

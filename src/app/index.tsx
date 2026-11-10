@@ -2,7 +2,6 @@ import React, {useMemo, useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, TextInput, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
-
 import {ThemedText} from '@/components/themed-text';
 import {ThemedView} from '@/components/themed-view';
 import {BottomTabInset, Spacing} from '@/constants/theme';
@@ -70,7 +69,7 @@ export default function FoldersScreen() {
         );
     }
 
-    // 2. Folder Detail View (when user opens a folder)
+    // 2. Folder Detailed View (when user opens a folder)
     if (selectedFolder) {
         return (
             <ThemedView style={{flex: 1}}>
@@ -103,7 +102,7 @@ export default function FoldersScreen() {
     // 3. Folders Grid View
     return (
         <ThemedView style={{flex: 1}}>
-            {/* Android Top App Bar */}
+           {/*The top bar of the app.*/}
             <View style={[{
                 paddingHorizontal: Spacing.three,
                 paddingBottom: Spacing.two,

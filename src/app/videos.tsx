@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View,} from 'react-native';
+import {ActivityIndicator, FlatList, Pressable, RefreshControl, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
@@ -138,7 +138,7 @@ export default function VideosScreen() {
 
     if (permissionStatus !== 'granted') {
         return (
-            <ThemedView style={styles.container}>
+            <ThemedView style={{flex: 1}}>
                 <PermissionView
                     status={permissionStatus}
                     onRequestPermission={requestPermission}
@@ -148,11 +148,21 @@ export default function VideosScreen() {
     }
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={{flex: 1}}>
             {/* App Bar */}
-            <View style={[styles.header, {paddingTop: insets.top + Spacing.two}]}>
-                <View style={styles.headerTitleBox}>
-                    <ThemedText type="title" style={styles.title}>
+            <View style={[{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: Spacing.three,
+                paddingBottom: Spacing.two,
+                borderBottomWidth: 1,
+                borderBottomColor: 'rgba(150, 150, 150, 0.08)'
+            }, {paddingTop: insets.top + Spacing.two}]}>
+                <View style={{flex: 1}}>
+                    <ThemedText type="title" style={{
+                        fontSize: 26,
+                        fontWeight: '700'
+                    }}>
                         Videos
                     </ThemedText>
                     <ThemedText type="small" themeColor="textSecondary">
@@ -163,7 +173,13 @@ export default function VideosScreen() {
                 <Pressable
                     onPress={() => setNumColumns((prev) => (prev === 3 ? 4 : 3))}
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
-                    style={styles.actionButton}>
+                    style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: 22,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
                     <SymbolView
                         name={{ios: 'square.grid.3x3', android: 'grid_view'}}
                         size={22}
@@ -176,23 +192,35 @@ export default function VideosScreen() {
 
             {/* Grid */}
             {isLoading && videos.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <ActivityIndicator size="large" color="#208AEF"/>
-                    <ThemedText style={styles.loadingText} themeColor="textSecondary">
+                    <ThemedText style={{marginTop: Spacing.two}} themeColor="textSecondary">
                         Scanning device for videos...
                     </ThemedText>
                 </View>
             ) : videos.length === 0 ? (
-                <View style={styles.centerContainer}>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: Spacing.four,
+                    gap: Spacing.two
+                }}>
                     <SymbolView
                         name={{ios: 'video.slash', android: 'videocam_off'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />
-                    <ThemedText type="subtitle" style={styles.emptyTitle}>
+                    <ThemedText type="subtitle" style={{marginTop: Spacing.two}}>
                         No videos found
                     </ThemedText>
-                    <ThemedText style={styles.emptySubtitle} themeColor="textSecondary">
+                    <ThemedText style={{textAlign: 'center'}} themeColor="textSecondary">
                         No video files were found on this device storage.
                     </ThemedText>
                 </View>
@@ -209,7 +237,7 @@ export default function VideosScreen() {
                         />
                     )}
                     contentContainerStyle={[
-                        styles.listContent,
+                        {paddingTop: Spacing.one},
                         {paddingBottom: insets.bottom + 80 + Spacing.four},
                     ]}
                     onEndReached={loadMoreVideos}
@@ -223,7 +251,10 @@ export default function VideosScreen() {
                     }
                     ListFooterComponent={
                         isLoadingMore ? (
-                            <View style={styles.footerLoader}>
+                            <View style={{
+                                paddingVertical: Spacing.four,
+                                alignItems: 'center'
+                            }}>
                                 <ActivityIndicator size="small" color="#208AEF"/>
                             </View>
                         ) : undefined
@@ -242,54 +273,3 @@ export default function VideosScreen() {
         </ThemedView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: Spacing.three,
-        paddingBottom: Spacing.two,
-        borderBottomWidth: 1,
-        borderBottomColor: 'rgba(150, 150, 150, 0.08)',
-    },
-    headerTitleBox: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 26,
-        fontWeight: '700',
-    },
-    actionButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    listContent: {
-        paddingTop: Spacing.one,
-    },
-    centerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: Spacing.four,
-        gap: Spacing.two,
-    },
-    loadingText: {
-        marginTop: Spacing.two,
-    },
-    emptyTitle: {
-        marginTop: Spacing.two,
-    },
-    emptySubtitle: {
-        textAlign: 'center',
-    },
-    footerLoader: {
-        paddingVertical: Spacing.four,
-        alignItems: 'center',
-    },
-});

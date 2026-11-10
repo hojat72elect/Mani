@@ -17,7 +17,7 @@ import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissions
 import {getAssetsPageUseCase} from "@/services/getAssetsPageUseCase";
 import {deleteAssetsUseCase} from "@/services/deleteAssetsUseCase";
 
-export default function TimelineScreen() {
+export default function PhotosScreen() {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
     const [numColumns, setNumColumns] = useState<3 | 4>(3);

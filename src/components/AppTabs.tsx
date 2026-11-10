@@ -19,7 +19,7 @@ export default function AppTabs() {
                 />
             </NativeTabs.Trigger>
 
-            <NativeTabs.Trigger name="timeline">
+            <NativeTabs.Trigger name="photos">
                 <NativeTabs.Trigger.Label>Photos</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
                     src={require('@/assets/images/tabIcons/explore.png')}

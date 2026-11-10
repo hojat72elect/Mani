@@ -7,7 +7,7 @@ import {ThemedView} from '@/components/themed-view';
 import {BottomTabInset, Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {useMediaLibrary} from '@/hooks/use-media-library';
-import {PermissionView} from '@/components/gallery/permission-view';
+import {PermissionView} from '@/components/gallery/PermissionView';
 import {FolderCard} from '@/components/gallery/FolderCard';
 import {FolderDetailView} from '@/components/gallery/folder-detail-view';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';

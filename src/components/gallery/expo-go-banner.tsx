@@ -5,13 +5,8 @@ import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/themed-text';
 import {Spacing} from '@/constants/theme';
-import {useTheme} from '@/hooks/use-theme';
 
-type Props = {
-    onRefresh: () => void;
-};
-
-export function ExpoGoBanner({onRefresh}: Props) {
+export function ExpoGoBanner({onRefresh}: { onRefresh: () => void; }) {
     const [dismissed, setDismissed] = useState(false);
 
     const isExpoGo = Constants.appOwnership === 'expo';
@@ -33,8 +28,16 @@ export function ExpoGoBanner({onRefresh}: Props) {
     };
 
     return (
-        <View style={[styles.container, {backgroundColor: '#1E293B', borderColor: '#334155'}]}>
-            <View style={styles.contentRow}>
+        <View style={[{  marginHorizontal: Spacing.three,
+            marginTop: Spacing.two,
+            marginBottom: Spacing.one,
+            padding: Spacing.three,
+            borderRadius: 16,
+            borderWidth: 1,
+            gap: Spacing.two}, {backgroundColor: '#1E293B', borderColor: '#334155'}]}>
+            <View style={{ flexDirection: 'row',
+                alignItems: 'flex-start',
+                gap: Spacing.two}}>
                 <View style={styles.iconCircle}>
                     <SymbolView
                         name={{ios: 'exclamationmark.triangle.fill', android: 'warning'}}
@@ -82,20 +85,6 @@ export function ExpoGoBanner({onRefresh}: Props) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: Spacing.three,
-        marginTop: Spacing.two,
-        marginBottom: Spacing.one,
-        padding: Spacing.three,
-        borderRadius: 16,
-        borderWidth: 1,
-        gap: Spacing.two,
-    },
-    contentRow: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        gap: Spacing.two,
-    },
     iconCircle: {
         width: 32,
         height: 32,

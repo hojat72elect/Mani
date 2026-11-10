@@ -16,7 +16,7 @@ import {
 } from '@/services/media-service';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
-import {PermissionView} from '@/components/gallery/permission-view';
+import {PermissionView} from '@/components/gallery/PermissionView';
 import {ExpoGoBanner} from '@/components/gallery/expo-go-banner';
 
 export default function TimelineScreen() {

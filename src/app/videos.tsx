@@ -16,6 +16,9 @@ import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissions
 import {getAssetsPageUseCase} from "@/services/getAssetsPageUseCase";
 import {deleteAssetsUseCase} from "@/services/deleteAssetsUseCase";
 
+/**
+ * A big GridView that shows all the videos we have on the device.
+ */
 export default function VideosScreen() {
     const theme = useTheme();
     const insets = useSafeAreaInsets();

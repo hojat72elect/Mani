@@ -13,6 +13,9 @@ import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
 
+/**
+ * The initial page of the app. Shows different folders of photos/videos.
+ */
 export default function FoldersScreen() {
     const theme = useTheme();
     const insets = useSafeAreaInsets();

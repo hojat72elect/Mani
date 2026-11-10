@@ -4,7 +4,7 @@ import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
-import {useTheme} from '@/hooks/use-theme';
+import {useTheme} from '@/hooks/useTheme';
 import {GalleryFolder} from '@/services/media-service';
 import {Spacing} from "@/constants/Spacing";
 

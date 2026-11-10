@@ -5,7 +5,7 @@ import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
-import {useTheme} from '@/hooks/use-theme';
+import {useTheme} from '@/hooks/useTheme';
 import {GalleryFolder, MediaFilterType} from '@/services/media-service';
 import {MediaGridItem} from './MediaGridItem';
 import {Spacing} from "@/constants/Spacing";

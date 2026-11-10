@@ -4,7 +4,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
-import {useTheme} from '@/hooks/use-theme';
+import {useTheme} from '@/hooks/useTheme';
 import {Spacing} from "@/constants/Spacing";
 
 export function PermissionView({onRequestPermission, status}: {

@@ -2,7 +2,6 @@ import React from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
-
 import {ThemedText} from '@/components/themed-text';
 import {ThemedView} from '@/components/themed-view';
 import {Spacing} from '@/constants/theme';
@@ -34,7 +33,7 @@ export function FolderCard({folder, onPress}: Props) {
                     ) : (
                         <View style={[styles.placeholder, {backgroundColor: theme.backgroundSelected}]}>
                             <SymbolView
-                                name={{ios: 'folder', android: 'folder', web: 'folder'}}
+                                name={{ios: 'folder', android: 'folder'}}
                                 size={40}
                                 tintColor={theme.textSecondary}
                             />
@@ -44,7 +43,7 @@ export function FolderCard({folder, onPress}: Props) {
                     {folder.latestMediaType === 'video' && (
                         <View style={styles.videoBadge}>
                             <SymbolView
-                                name={{ios: 'video.fill', android: 'videocam', web: 'videocam'}}
+                                name={{ios: 'video.fill', android: 'videocam'}}
                                 size={14}
                                 tintColor="#ffffff"
                             />

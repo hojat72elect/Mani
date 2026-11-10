@@ -3,7 +3,6 @@ import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-
 import {ThemedText} from '@/components/themed-text';
 import {ThemedView} from '@/components/themed-view';
 import {Spacing} from '@/constants/theme';
@@ -57,7 +56,7 @@ export function FolderDetailView({
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
                     style={styles.backButton}>
                     <SymbolView
-                        name={{ios: 'arrow.left', android: 'arrow_back', web: 'arrow_back'}}
+                        name={{ios: 'arrow.left', android: 'arrow_back'}}
                         size={24}
                         tintColor={theme.text}
                     />
@@ -78,7 +77,7 @@ export function FolderDetailView({
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
                     style={styles.actionButton}>
                     <SymbolView
-                        name={{ios: 'square.grid.3x3', android: 'grid_view', web: 'grid_view'}}
+                        name={{ios: 'square.grid.3x3', android: 'grid_view'}}
                         size={22}
                         tintColor={theme.text}
                     />
@@ -121,7 +120,7 @@ export function FolderDetailView({
             ) : assets.length === 0 ? (
                 <View style={styles.centerContainer}>
                     <SymbolView
-                        name={{ios: 'photo', android: 'image_not_supported', web: 'image'}}
+                        name={{ios: 'photo', android: 'image_not_supported'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />

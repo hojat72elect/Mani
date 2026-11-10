@@ -2,7 +2,6 @@ import React from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
-
 import {ThemedText} from '@/components/themed-text';
 import {ThemedView} from '@/components/themed-view';
 import {Spacing} from '@/constants/theme';
@@ -22,7 +21,7 @@ export function PermissionView({onRequestPermission, status}: Props) {
             <ThemedView type="backgroundElement" style={styles.card}>
                 <View style={[styles.iconWrapper, {backgroundColor: theme.backgroundSelected}]}>
                     <SymbolView
-                        name={{ios: 'photo.on.rectangle.angled', android: 'photo_library', web: 'photo_library'}}
+                        name={{ios: 'photo.on.rectangle.angled', android: 'photo_library'}}
                         size={56}
                         tintColor={theme.text}
                     />
@@ -40,7 +39,7 @@ export function PermissionView({onRequestPermission, status}: Props) {
                 <View style={styles.featuresList}>
                     <View style={styles.featureItem}>
                         <SymbolView
-                            name={{ios: 'folder', android: 'folder', web: 'folder'}}
+                            name={{ios: 'folder', android: 'folder'}}
                             size={20}
                             tintColor={theme.text}
                         />
@@ -51,7 +50,7 @@ export function PermissionView({onRequestPermission, status}: Props) {
 
                     <View style={styles.featureItem}>
                         <SymbolView
-                            name={{ios: 'play.circle', android: 'play_circle', web: 'play_circle'}}
+                            name={{ios: 'play.circle', android: 'play_circle'}}
                             size={20}
                             tintColor={theme.text}
                         />
@@ -62,7 +61,7 @@ export function PermissionView({onRequestPermission, status}: Props) {
 
                     <View style={styles.featureItem}>
                         <SymbolView
-                            name={{ios: 'lock.shield', android: 'security', web: 'security'}}
+                            name={{ios: 'lock.shield', android: 'security'}}
                             size={20}
                             tintColor={theme.text}
                         />

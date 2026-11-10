@@ -138,7 +138,7 @@ export default function FoldersScreen() {
                                 alignItems: 'center'
                             }}>
                             <SymbolView
-                                name={{ios: 'magnifyingglass', android: 'search', web: 'search'}}
+                                name={{ios: 'magnifyingglass', android: 'search'}}
                                 size={22}
                                 tintColor={theme.text}
                             />
@@ -155,7 +155,7 @@ export default function FoldersScreen() {
                                 alignItems: 'center'
                             }}>
                             <SymbolView
-                                name={{ios: 'arrow.clockwise', android: 'refresh', web: 'refresh'}}
+                                name={{ios: 'arrow.clockwise', android: 'refresh'}}
                                 size={22}
                                 tintColor={theme.text}
                             />
@@ -173,7 +173,7 @@ export default function FoldersScreen() {
                         gap: Spacing.two
                     }, {backgroundColor: theme.backgroundElement}]}>
                         <SymbolView
-                            name={{ios: 'magnifyingglass', android: 'search', web: 'search'}}
+                            name={{ios: 'magnifyingglass', android: 'search'}}
                             size={18}
                             tintColor={theme.textSecondary}
                         />
@@ -192,7 +192,7 @@ export default function FoldersScreen() {
                         {searchQuery.length > 0 && (
                             <Pressable onPress={() => setSearchQuery('')}>
                                 <SymbolView
-                                    name={{ios: 'xmark.circle.fill', android: 'close', web: 'close'}}
+                                    name={{ios: 'xmark.circle.fill', android: 'close'}}
                                     size={18}
                                     tintColor={theme.textSecondary}
                                 />
@@ -227,7 +227,7 @@ export default function FoldersScreen() {
                     gap: Spacing.two
                 }}>
                     <SymbolView
-                        name={{ios: 'folder', android: 'folder_open', web: 'folder'}}
+                        name={{ios: 'folder', android: 'folder_open'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />

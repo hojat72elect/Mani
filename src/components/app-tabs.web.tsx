@@ -44,6 +44,7 @@ export function TabButton({children, isFocused, ...props}: TabTriggerSlotProps) 
 
 export function CustomTabList(props: TabListProps) {
     const scheme = useColorScheme();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const colors = Colors[scheme === 'dark' ? 'dark' : 'light'];
 
     return (

@@ -1,5 +1,5 @@
 import * as MediaLibrary from 'expo-media-library/legacy';
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
 
 import {
@@ -33,8 +33,10 @@ export function useMediaLibrary() {
     // Fullscreen Viewer
     const [activeAssetIndex, setActiveAssetIndex] = useState<number | null>(null);
 
+    const hasInitialized = useRef(false);
+
     // Check initial permissions
-    const checkPermissions = useCallback(async () => {
+    const checkPermissions = async () => {
         setIsLoadingFolders(true);
         try {
             const res = await checkMediaPermissionsAsync();
@@ -50,9 +52,9 @@ export function useMediaLibrary() {
         } finally {
             setIsLoadingFolders(false);
         }
-    }, []);
+    };
 
-    const requestPermission = useCallback(async () => {
+    const requestPermission = async () => {
         setIsLoadingFolders(true);
         try {
             const res = await requestMediaPermissionsAsync();
@@ -66,10 +68,10 @@ export function useMediaLibrary() {
         } finally {
             setIsLoadingFolders(false);
         }
-    }, []);
+    };
 
     // Load Folders
-    const loadFolders = useCallback(async () => {
+    const loadFolders = async () => {
         if (permissionStatus !== 'granted') return;
         setIsLoadingFolders(true);
         try {
@@ -81,34 +83,31 @@ export function useMediaLibrary() {
         } finally {
             setIsLoadingFolders(false);
         }
-    }, [permissionStatus]);
+    };
 
     // Load Assets for selected folder
-    const loadAssets = useCallback(
-        async (folder: GalleryFolder | null, filter: MediaFilterType) => {
-            if (permissionStatus !== 'granted') return;
-            setIsLoadingAssets(true);
-            try {
-                const result = await getAssetsPageAsync({
-                    folderId: folder?.id,
-                    mediaFilter: filter,
-                    first: 40,
-                });
-                setAssets(result.assets);
-                setEndCursor(result.endCursor);
-                setHasNextPage(result.hasNextPage);
-                setTotalCount(result.totalCount);
-            } catch (err) {
-                console.warn('Failed to load folder assets', err);
-            } finally {
-                setIsLoadingAssets(false);
-            }
-        },
-        [permissionStatus]
-    );
+    const loadAssets = async (folder: GalleryFolder | null, filter: MediaFilterType) => {
+        if (permissionStatus !== 'granted') return;
+        setIsLoadingAssets(true);
+        try {
+            const result = await getAssetsPageAsync({
+                folderId: folder?.id,
+                mediaFilter: filter,
+                first: 40,
+            });
+            setAssets(result.assets);
+            setEndCursor(result.endCursor);
+            setHasNextPage(result.hasNextPage);
+            setTotalCount(result.totalCount);
+        } catch (err) {
+            console.warn('Failed to load folder assets', err);
+        } finally {
+            setIsLoadingAssets(false);
+        }
+    };
 
     // Load next page
-    const loadMoreAssets = useCallback(async () => {
+    const loadMoreAssets = async () => {
         if (!hasNextPage || isLoadingMore || !endCursor || permissionStatus !== 'granted') return;
         setIsLoadingMore(true);
         try {
@@ -126,26 +125,33 @@ export function useMediaLibrary() {
         } finally {
             setIsLoadingMore(false);
         }
-    }, [hasNextPage, isLoadingMore, endCursor, permissionStatus, selectedFolder?.id, mediaFilter]);
+    };
 
     // Initialize permission check
     useEffect(() => {
-        checkPermissions();
-    }, [checkPermissions]);
+        if (!hasInitialized.current) {
+            checkPermissions();
+            hasInitialized.current = true;
+        }
+    }, []);
 
     // Auto load folders when permission granted
     useEffect(() => {
         if (permissionStatus === 'granted') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadFolders();
         }
-    }, [permissionStatus, loadFolders]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [permissionStatus]);
 
     // Auto load assets when selected folder or filter changes
     useEffect(() => {
         if (selectedFolder) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadAssets(selectedFolder, mediaFilter);
         }
-    }, [selectedFolder, mediaFilter, loadAssets]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedFolder, mediaFilter]);
 
     // Android hardware back button handler
     useEffect(() => {
@@ -168,41 +174,38 @@ export function useMediaLibrary() {
     }, [activeAssetIndex, selectedFolder]);
 
     // Asset deletion
-    const deleteAsset = useCallback(
-        async (asset: MediaLibrary.Asset) => {
-            Alert.alert(
-                'Delete Media',
-                `Are you sure you want to permanently delete this ${asset.mediaType}?`,
-                [
-                    {text: 'Cancel', style: 'cancel'},
-                    {
-                        text: 'Delete',
-                        style: 'destructive',
-                        onPress: async () => {
-                            try {
-                                const success = await deleteAssetsAsync([asset.id]);
-                                if (success) {
-                                    setAssets((prev) => prev.filter((a) => a.id !== asset.id));
-                                    if (activeAssetIndex !== null) {
-                                        if (assets.length <= 1) {
-                                            setActiveAssetIndex(null);
-                                        } else if (activeAssetIndex >= assets.length - 1) {
-                                            setActiveAssetIndex(assets.length - 2);
-                                        }
+    const deleteAsset = async (asset: MediaLibrary.Asset) => {
+        Alert.alert(
+            'Delete Media',
+            `Are you sure you want to permanently delete this ${asset.mediaType}?`,
+            [
+                {text: 'Cancel', style: 'cancel'},
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            const success = await deleteAssetsAsync([asset.id]);
+                            if (success) {
+                                setAssets((prev) => prev.filter((a) => a.id !== asset.id));
+                                if (activeAssetIndex !== null) {
+                                    if (assets.length <= 1) {
+                                        setActiveAssetIndex(null);
+                                    } else if (activeAssetIndex >= assets.length - 1) {
+                                        setActiveAssetIndex(assets.length - 2);
                                     }
-                                    // Refresh folders count
-                                    loadFolders();
                                 }
-                            } catch (e) {
-                                Alert.alert('Error', 'Could not delete item.');
+                                // Refresh folders count
+                                loadFolders();
                             }
-                        },
+                        } catch {
+                            Alert.alert('Error', 'Could not delete item.');
+                        }
                     },
-                ]
-            );
-        },
-        [activeAssetIndex, assets.length, loadFolders]
-    );
+                },
+            ]
+        );
+    };
 
     return {
         permissionStatus,

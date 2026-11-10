@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-
 import {ThemedText} from '@/components/themed-text';
 import {ThemedView} from '@/components/themed-view';
 import {BottomTabInset, Spacing} from '@/constants/theme';
@@ -37,7 +36,9 @@ export default function VideosScreen() {
     // Fullscreen viewer
     const [activeAssetIndex, setActiveAssetIndex] = useState<number | null>(null);
 
-    const checkPermissions = useCallback(async () => {
+    const hasInitialized = useRef(false);
+
+    const checkPermissions = async () => {
         setIsLoading(true);
         try {
             const res = await checkMediaPermissionsAsync();
@@ -53,9 +54,9 @@ export default function VideosScreen() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    };
 
-    const requestPermission = useCallback(async () => {
+    const requestPermission = async () => {
         setIsLoading(true);
         try {
             const res = await requestMediaPermissionsAsync();
@@ -69,9 +70,9 @@ export default function VideosScreen() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    };
 
-    const loadVideos = useCallback(async () => {
+    const loadVideos = async () => {
         if (permissionStatus !== 'granted') return;
         setIsLoading(true);
         try {
@@ -88,9 +89,9 @@ export default function VideosScreen() {
         } finally {
             setIsLoading(false);
         }
-    }, [permissionStatus]);
+    };
 
-    const loadMoreVideos = useCallback(async () => {
+    const loadMoreVideos = async () => {
         if (!hasNextPage || isLoadingMore || !endCursor || permissionStatus !== 'granted') return;
         setIsLoadingMore(true);
         try {
@@ -107,17 +108,22 @@ export default function VideosScreen() {
         } finally {
             setIsLoadingMore(false);
         }
-    }, [hasNextPage, isLoadingMore, endCursor, permissionStatus]);
+    };
 
     useEffect(() => {
-        checkPermissions();
-    }, [checkPermissions]);
+        if (!hasInitialized.current) {
+            checkPermissions();
+            hasInitialized.current = true;
+        }
+    }, []);
 
     useEffect(() => {
         if (permissionStatus === 'granted') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadVideos();
         }
-    }, [permissionStatus, loadVideos]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [permissionStatus]);
 
     const handleDelete = async (asset: MediaLibrary.Asset) => {
         const success = await deleteAssetsAsync([asset.id]);
@@ -163,7 +169,7 @@ export default function VideosScreen() {
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
                     style={styles.actionButton}>
                     <SymbolView
-                        name={{ios: 'square.grid.3x3', android: 'grid_view', web: 'grid_view'}}
+                        name={{ios: 'square.grid.3x3', android: 'grid_view'}}
                         size={22}
                         tintColor={theme.text}
                     />
@@ -183,7 +189,7 @@ export default function VideosScreen() {
             ) : videos.length === 0 ? (
                 <View style={styles.centerContainer}>
                     <SymbolView
-                        name={{ios: 'video.slash', android: 'videocam_off', web: 'videocam'}}
+                        name={{ios: 'video.slash', android: 'videocam_off'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />

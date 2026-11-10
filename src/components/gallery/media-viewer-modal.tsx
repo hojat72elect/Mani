@@ -5,7 +5,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-
 import {ThemedText} from '@/components/themed-text';
 import {Spacing} from '@/constants/theme';
 import {formatDuration, formatMediaDate} from '@/services/media-service';
@@ -37,6 +36,7 @@ export function MediaViewerModal({
     // Sync index when initialIndex changes
     React.useEffect(() => {
         if (visible && initialIndex >= 0 && initialIndex < assets.length) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setCurrentIndex(initialIndex);
         }
     }, [visible, initialIndex, assets.length]);
@@ -106,7 +106,7 @@ export function MediaViewerModal({
                                 <View style={styles.videoIndicatorBox}>
                                     <View style={styles.playCircle}>
                                         <SymbolView
-                                            name={{ios: 'play.fill', android: 'play_arrow', web: 'play_arrow'}}
+                                            name={{ios: 'play.fill', android: 'play_arrow'}}
                                             size={36}
                                             tintColor="#ffffff"
                                         />
@@ -128,7 +128,7 @@ export function MediaViewerModal({
                             android_ripple={{color: 'rgba(255,255,255,0.2)', borderless: true}}
                             style={styles.iconButton}>
                             <SymbolView
-                                name={{ios: 'arrow.left', android: 'arrow_back', web: 'arrow_back'}}
+                                name={{ios: 'arrow.left', android: 'arrow_back'}}
                                 size={24}
                                 tintColor="#ffffff"
                             />
@@ -149,7 +149,7 @@ export function MediaViewerModal({
                                 android_ripple={{color: 'rgba(255,255,255,0.2)', borderless: true}}
                                 style={styles.iconButton}>
                                 <SymbolView
-                                    name={{ios: 'square.and.arrow.up', android: 'share', web: 'share'}}
+                                    name={{ios: 'square.and.arrow.up', android: 'share'}}
                                     size={22}
                                     tintColor="#ffffff"
                                 />
@@ -160,7 +160,7 @@ export function MediaViewerModal({
                                 android_ripple={{color: 'rgba(255,255,255,0.2)', borderless: true}}
                                 style={[styles.iconButton, showDetails && styles.activeIconButton]}>
                                 <SymbolView
-                                    name={{ios: 'info.circle', android: 'info', web: 'info'}}
+                                    name={{ios: 'info.circle', android: 'info'}}
                                     size={22}
                                     tintColor="#ffffff"
                                 />
@@ -171,7 +171,7 @@ export function MediaViewerModal({
                                 android_ripple={{color: 'rgba(255,255,255,0.2)', borderless: true}}
                                 style={styles.iconButton}>
                                 <SymbolView
-                                    name={{ios: 'trash', android: 'delete', web: 'delete'}}
+                                    name={{ios: 'trash', android: 'delete'}}
                                     size={22}
                                     tintColor="#ff5555"
                                 />

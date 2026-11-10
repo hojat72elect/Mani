@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-
 import {ThemedText} from '@/components/themed-text';
 import {ThemedView} from '@/components/themed-view';
 import {BottomTabInset, Spacing} from '@/constants/theme';
@@ -45,7 +44,9 @@ export default function TimelineScreen() {
         {label: 'Videos', value: 'video'},
     ];
 
-    const checkPermissions = useCallback(async () => {
+    const hasInitialized = useRef(false);
+
+    const checkPermissions = async () => {
         setIsLoading(true);
         try {
             const res = await checkMediaPermissionsAsync();
@@ -61,9 +62,9 @@ export default function TimelineScreen() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    };
 
-    const requestPermission = useCallback(async () => {
+    const requestPermission = async () => {
         setIsLoading(true);
         try {
             const res = await requestMediaPermissionsAsync();
@@ -77,31 +78,28 @@ export default function TimelineScreen() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    };
 
-    const loadAssets = useCallback(
-        async (filter: MediaFilterType) => {
-            if (permissionStatus !== 'granted') return;
-            setIsLoading(true);
-            try {
-                const result = await getAssetsPageAsync({
-                    mediaFilter: filter,
-                    first: 48,
-                });
-                setAssets(result.assets);
-                setEndCursor(result.endCursor);
-                setHasNextPage(result.hasNextPage);
-                setTotalCount(result.totalCount);
-            } catch (err) {
-                console.warn('Failed to load media', err);
-            } finally {
-                setIsLoading(false);
-            }
-        },
-        [permissionStatus]
-    );
+    const loadAssets = async (filter: MediaFilterType) => {
+        if (permissionStatus !== 'granted') return;
+        setIsLoading(true);
+        try {
+            const result = await getAssetsPageAsync({
+                mediaFilter: filter,
+                first: 48,
+            });
+            setAssets(result.assets);
+            setEndCursor(result.endCursor);
+            setHasNextPage(result.hasNextPage);
+            setTotalCount(result.totalCount);
+        } catch (err) {
+            console.warn('Failed to load media', err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    const loadMoreAssets = useCallback(async () => {
+    const loadMoreAssets = async () => {
         if (!hasNextPage || isLoadingMore || !endCursor || permissionStatus !== 'granted') return;
         setIsLoadingMore(true);
         try {
@@ -118,17 +116,22 @@ export default function TimelineScreen() {
         } finally {
             setIsLoadingMore(false);
         }
-    }, [hasNextPage, isLoadingMore, endCursor, permissionStatus, mediaFilter]);
+    };
 
     useEffect(() => {
-        checkPermissions();
-    }, [checkPermissions]);
+        if (!hasInitialized.current) {
+            checkPermissions();
+            hasInitialized.current = true;
+        }
+    }, []);
 
     useEffect(() => {
         if (permissionStatus === 'granted') {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             loadAssets(mediaFilter);
         }
-    }, [permissionStatus, mediaFilter, loadAssets]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [permissionStatus, mediaFilter]);
 
     const handleDelete = async (asset: MediaLibrary.Asset) => {
         const success = await deleteAssetsAsync([asset.id]);
@@ -174,7 +177,7 @@ export default function TimelineScreen() {
                     android_ripple={{color: 'rgba(0,0,0,0.1)', borderless: true}}
                     style={styles.actionButton}>
                     <SymbolView
-                        name={{ios: 'square.grid.3x3', android: 'grid_view', web: 'grid_view'}}
+                        name={{ios: 'square.grid.3x3', android: 'grid_view'}}
                         size={22}
                         tintColor={theme.text}
                     />
@@ -217,7 +220,7 @@ export default function TimelineScreen() {
             ) : assets.length === 0 ? (
                 <View style={styles.centerContainer}>
                     <SymbolView
-                        name={{ios: 'photo', android: 'image_not_supported', web: 'image'}}
+                        name={{ios: 'photo', android: 'image_not_supported'}}
                         size={48}
                         tintColor={theme.textSecondary}
                     />

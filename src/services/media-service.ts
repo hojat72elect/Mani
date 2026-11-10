@@ -20,32 +20,16 @@ export type PaginatedAssets = {
 };
 
 /**
- * Check existing media permissions
+ * Check existing media permissions.
  */
 export async function checkMediaPermissionsAsync(): Promise<MediaLibrary.PermissionResponse> {
-    if (Platform.OS === 'web') {
-        return {
-            status: MediaLibrary.PermissionStatus.GRANTED,
-            granted: true,
-            canAskAgain: true,
-            expires: 'never',
-        };
-    }
     return await MediaLibrary.getPermissionsAsync(false, ['photo', 'video']);
 }
 
 /**
- * Request media permissions for images and videos
+ * Request media permissions for images and videos.
  */
 export async function requestMediaPermissionsAsync(): Promise<MediaLibrary.PermissionResponse> {
-    if (Platform.OS === 'web') {
-        return {
-            status: MediaLibrary.PermissionStatus.GRANTED,
-            granted: true,
-            canAskAgain: true,
-            expires: 'never',
-        };
-    }
     return await MediaLibrary.requestPermissionsAsync(false, ['photo', 'video']);
 }
 
@@ -56,63 +40,6 @@ export async function getFoldersWithCoversAsync(): Promise<{
     allFolder: GalleryFolder;
     folders: GalleryFolder[];
 }> {
-    if (Platform.OS === 'web') {
-        // Web fallback preview
-        const sampleAssets: MediaLibrary.Asset[] = [
-            {
-                id: 'web-1',
-                filename: 'sample_photo.jpg',
-                uri: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800',
-                mediaType: 'photo',
-                width: 1920,
-                height: 1080,
-                creationTime: Date.now() - 3600000,
-                modificationTime: Date.now() - 3600000,
-                duration: 0,
-            },
-            {
-                id: 'web-2',
-                filename: 'nature_video.mp4',
-                uri: 'https://images.unsplash.com/photo-1511497584788-87676104235f?w=800',
-                mediaType: 'video',
-                width: 1920,
-                height: 1080,
-                creationTime: Date.now() - 7200000,
-                modificationTime: Date.now() - 7200000,
-                duration: 42,
-            },
-        ];
-
-        const allFolder: GalleryFolder = {
-            id: '__all__',
-            title: 'All Media',
-            assetCount: sampleAssets.length,
-            coverUri: sampleAssets[0]?.uri,
-            latestMediaType: sampleAssets[0]?.mediaType,
-            isVirtual: true,
-        };
-
-        const cameraFolder: GalleryFolder = {
-            id: 'camera',
-            title: 'Camera',
-            assetCount: 12,
-            coverUri: sampleAssets[0]?.uri,
-            latestMediaType: 'photo',
-        };
-
-        const screenshotsFolder: GalleryFolder = {
-            id: 'screenshots',
-            title: 'Screenshots',
-            assetCount: 8,
-            coverUri: sampleAssets[1]?.uri,
-            latestMediaType: 'video',
-        };
-
-        return {
-            allFolder,
-            folders: [cameraFolder, screenshotsFolder],
-        };
-    }
 
     // Fetch all albums from device
     const albums = await MediaLibrary.getAlbumsAsync({includeSmartAlbums: true});

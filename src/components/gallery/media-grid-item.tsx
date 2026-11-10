@@ -3,7 +3,6 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-
 import {ThemedText} from '@/components/themed-text';
 import {formatDuration} from '@/services/media-service';
 import {Spacing} from '@/constants/theme';
@@ -37,7 +36,7 @@ export function MediaGridItem({asset, onPress, numColumns}: Props) {
             {isVideo && (
                 <View style={styles.videoOverlay}>
                     <SymbolView
-                        name={{ios: 'play.fill', android: 'play_arrow', web: 'play_arrow'}}
+                        name={{ios: 'play.fill', android: 'play_arrow'}}
                         size={12}
                         tintColor="#ffffff"
                     />

@@ -3,8 +3,8 @@ import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-import {ThemedText} from '@/components/themed-text';
-import {ThemedView} from '@/components/themed-view';
+import {ThemedText} from '@/components/ThemedText';
+import {ThemedView} from '@/components/ThemedView';
 import {BottomTabInset, Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {
@@ -17,7 +17,7 @@ import {
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/components/gallery/PermissionView';
-import {ExpoGoBanner} from '@/components/gallery/expo-go-banner';
+import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 
 export default function TimelineScreen() {
     const theme = useTheme();

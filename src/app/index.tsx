@@ -2,8 +2,8 @@ import React, {useMemo, useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, TextInput, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
-import {ThemedText} from '@/components/themed-text';
-import {ThemedView} from '@/components/themed-view';
+import {ThemedText} from '@/components/ThemedText';
+import {ThemedView} from '@/components/ThemedView';
 import {BottomTabInset, Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {useMediaLibrary} from '@/hooks/use-media-library';
@@ -11,7 +11,7 @@ import {PermissionView} from '@/components/gallery/PermissionView';
 import {FolderCard} from '@/components/gallery/FolderCard';
 import {FolderDetailView} from '@/components/gallery/FolderDetailView';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
-import {ExpoGoBanner} from '@/components/gallery/expo-go-banner';
+import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 
 export default function FoldersScreen() {
     const theme = useTheme();

@@ -3,8 +3,8 @@ import {ActivityIndicator, FlatList, Pressable, RefreshControl, StyleSheet, View
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-import {ThemedText} from '@/components/themed-text';
-import {ThemedView} from '@/components/themed-view';
+import {ThemedText} from '@/components/ThemedText';
+import {ThemedView} from '@/components/ThemedView';
 import {Spacing} from '@/constants/theme';
 import {useTheme} from '@/hooks/use-theme';
 import {GalleryFolder, MediaFilterType} from '@/services/media-service';

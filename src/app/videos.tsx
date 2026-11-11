@@ -8,7 +8,7 @@ import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
-import {PermissionView} from '@/components/gallery/PermissionView';
+import {PermissionView} from '@/shared/ui/PermissionView';
 import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
 import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";

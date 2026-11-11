@@ -6,7 +6,7 @@ import {ThemedText} from '@/components/ThemedText';
 import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {useMediaLibrary} from '@/hooks/useMediaLibrary';
-import {PermissionView} from '@/components/gallery/PermissionView';
+import {PermissionView} from '@/shared/ui/PermissionView';
 import {FolderCard} from '@/components/gallery/FolderCard';
 import {FolderDetailView} from '@/components/gallery/FolderDetailView';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';

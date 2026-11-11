@@ -14,7 +14,7 @@ export function PermissionView({onRequestPermission, status}: {
 
     return (
         <ThemedView type="backgroundElement" style={{
-            justifyContent:"space-between",
+            justifyContent: "space-between",
             flex: 1,
             padding: Spacing.four,
             alignItems: 'center',
@@ -24,7 +24,7 @@ export function PermissionView({onRequestPermission, status}: {
             shadowOpacity: 0.1,
             shadowRadius: 12
         }}>
-            <View style={{ alignItems: 'center'}}>
+            <View style={{alignItems: 'center'}}>
                 <View style={{
                     width: 100,
                     height: 100,
@@ -60,7 +60,6 @@ export function PermissionView({onRequestPermission, status}: {
                 </ThemedText>
 
             </View>
-
 
             <Pressable
                 android_ripple={{color: 'rgba(255,255,255,0.2)'}}

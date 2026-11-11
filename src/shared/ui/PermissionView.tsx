@@ -4,7 +4,7 @@ import {SymbolView} from 'expo-symbols';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
-import {Spacing} from "@/constants/Spacing";
+import {Spacing} from "@/shared/ui/Spacing";
 
 export function PermissionView({onRequestPermission, status}: {
     onRequestPermission: () => void;

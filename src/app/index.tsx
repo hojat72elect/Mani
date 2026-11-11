@@ -10,7 +10,7 @@ import {PermissionView} from '@/shared/ui/PermissionView';
 import {FolderCard} from '@/feature_folders/FolderCard';
 import {FolderDetailView} from '@/feature_folders/FolderDetailView';
 import {MediaViewerModal} from '@/shared/ui/MediaViewerModal';
-import {Spacing} from "@/constants/Spacing";
+import {Spacing} from "@/shared/ui/Spacing";
 
 /**
  * The initial page of the app. Shows different folders of photos/videos.

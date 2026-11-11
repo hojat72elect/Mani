@@ -4,7 +4,7 @@ import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/shared/ui/ThemedText';
-import {Spacing} from "@/constants/Spacing";
+import {Spacing} from "@/shared/ui/Spacing";
 import {formatVideoDurationUseCase} from "@/services/formatVideoDurationUseCase";
 
 export function MediaGridItem({asset, onPress}: {

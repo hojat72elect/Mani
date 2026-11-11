@@ -7,7 +7,7 @@ import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {MediaGridItem} from '@/shared/ui/MediaGridItem';
-import {Spacing} from "@/constants/Spacing";
+import {Spacing} from "@/shared/ui/Spacing";
 import {GalleryFolder} from "@/services/GalleryFolder";
 import {MediaFilterType} from "@/services/MediaFilterType";
 

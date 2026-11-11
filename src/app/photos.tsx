@@ -9,7 +9,7 @@ import {useTheme} from '@/hooks/useTheme';
 import {MediaGridItem} from '@/shared/ui/MediaGridItem';
 import {MediaViewerModal} from '@/shared/ui/MediaViewerModal';
 import {PermissionView} from '@/shared/ui/PermissionView';
-import {Spacing} from "@/constants/Spacing";
+import {Spacing} from "@/shared/ui/Spacing";
 import {MediaFilterType} from "@/services/MediaFilterType";
 import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";
 import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";

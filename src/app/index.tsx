@@ -7,8 +7,8 @@ import {ThemedView} from '@/components/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {useMediaLibrary} from '@/hooks/useMediaLibrary';
 import {PermissionView} from '@/shared/ui/PermissionView';
-import {FolderCard} from '@/components/gallery/FolderCard';
-import {FolderDetailView} from '@/components/gallery/FolderDetailView';
+import {FolderCard} from '@/feature_folders/FolderCard';
+import {FolderDetailView} from '@/feature_folders/FolderDetailView';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {Spacing} from "@/constants/Spacing";
 

@@ -3,7 +3,7 @@ import {Pressable, View} from 'react-native';
 import {SymbolView} from 'expo-symbols';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
-import {useTheme} from '@/hooks/useTheme';
+import {useTheme} from '@/shared/hooks/useTheme';
 import {Spacing} from "@/shared/ui/Spacing";
 
 export function PermissionView({onRequestPermission, status}: {

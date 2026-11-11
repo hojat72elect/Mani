@@ -5,7 +5,7 @@ import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
-import {useTheme} from '@/hooks/useTheme';
+import {useTheme} from '@/shared/hooks/useTheme';
 import {MediaGridItem} from '@/shared/ui/MediaGridItem';
 import {MediaViewerModal} from '@/shared/ui/MediaViewerModal';
 import {PermissionView} from '@/shared/ui/PermissionView';

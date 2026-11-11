@@ -3,7 +3,7 @@ import {Pressable, View} from 'react-native';
 import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
 import * as MediaLibrary from 'expo-media-library/legacy';
-import {ThemedText} from '@/components/ThemedText';
+import {ThemedText} from '@/shared/ui/ThemedText';
 import {Spacing} from "@/constants/Spacing";
 import {formatVideoDurationUseCase} from "@/services/formatVideoDurationUseCase";
 

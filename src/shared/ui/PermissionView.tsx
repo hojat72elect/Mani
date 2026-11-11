@@ -1,8 +1,8 @@
 import React from 'react';
 import {Pressable, View} from 'react-native';
 import {SymbolView} from 'expo-symbols';
-import {ThemedText} from '@/components/ThemedText';
-import {ThemedView} from '@/components/ThemedView';
+import {ThemedText} from '@/shared/ui/ThemedText';
+import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/hooks/useTheme';
 import {Spacing} from "@/constants/Spacing";
 

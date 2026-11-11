@@ -10,7 +10,6 @@ import {PermissionView} from '@/shared/ui/PermissionView';
 import {FolderCard} from '@/components/gallery/FolderCard';
 import {FolderDetailView} from '@/components/gallery/FolderDetailView';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
-import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
 
 /**
@@ -204,8 +203,6 @@ export default function FoldersScreen() {
                     </View>
                 )}
             </View>
-
-            <ExpoGoBanner onRefresh={refreshFolders}/>
 
             {/* Folders 2-Column Grid */}
             {isLoadingFolders && allFoldersList.length === 0 ? (

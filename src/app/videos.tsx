@@ -9,7 +9,6 @@ import {useTheme} from '@/hooks/useTheme';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/shared/ui/PermissionView';
-import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
 import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";
 import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";
@@ -191,7 +190,6 @@ export default function VideosScreen() {
                 </Pressable>
             </View>
 
-            <ExpoGoBanner onRefresh={loadVideos}/>
 
             {/* Grid */}
             {isLoading && videos.length === 0 ? (

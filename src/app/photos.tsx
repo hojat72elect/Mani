@@ -9,7 +9,6 @@ import {useTheme} from '@/hooks/useTheme';
 import {MediaGridItem} from '@/components/gallery/MediaGridItem';
 import {MediaViewerModal} from '@/components/gallery/MediaViewerModal';
 import {PermissionView} from '@/shared/ui/PermissionView';
-import {ExpoGoBanner} from '@/components/gallery/ExpoGoBanner';
 import {Spacing} from "@/constants/Spacing";
 import {MediaFilterType} from "@/services/MediaFilterType";
 import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";
@@ -198,8 +197,6 @@ export default function PhotosScreen() {
                     />
                 </Pressable>
             </View>
-
-            <ExpoGoBanner onRefresh={() => loadAssets(mediaFilter)}/>
 
             {/* Filter Chips Bar */}
             <View style={{

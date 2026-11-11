@@ -27,4 +27,4 @@ It organizes photos and videos into folders (albums), lets you filter by media t
 
 ## License
 
-[MIT](./License)
+[MIT](./LICENSE)

@@ -3,11 +3,11 @@ import {useEffect, useRef, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
 import {GalleryFolder} from "@/services/GalleryFolder";
 import {MediaFilterType} from "@/services/MediaFilterType";
-import {checkMediaPermissionsUseCase} from "@/services/checkMediaPermissionsUseCase";
+import {checkMediaPermissionsUseCase} from "@/shared/usecases/checkMediaPermissionsUseCase";
 import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";
 import {getFoldersWithCoversUseCase} from "@/services/getFoldersWithCoversUseCase";
 import {getAssetsPageUseCase} from "@/services/getAssetsPageUseCase";
-import {deleteAssetsUseCase} from "@/services/deleteAssetsUseCase";
+import {deleteAssetsUseCase} from "@/shared/usecases/deleteAssetsUseCase";
 
 export function useMediaLibrary() {
     const [permissionStatus, setPermissionStatus] = useState<

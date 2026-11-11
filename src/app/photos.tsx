@@ -10,10 +10,10 @@ import {MediaGridItem} from '@/shared/ui/MediaGridItem';
 import {MediaViewerModal} from '@/shared/ui/MediaViewerModal';
 import {PermissionView} from '@/shared/ui/PermissionView';
 import {Spacing} from "@/shared/ui/Spacing";
-import {MediaFilterType} from "@/services/MediaFilterType";
+import {MediaFilterType} from "@/shared/domain/MediaFilterType";
 import {checkMediaPermissionsUseCase} from "@/shared/usecases/checkMediaPermissionsUseCase";
-import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";
-import {getAssetsPageUseCase} from "@/services/getAssetsPageUseCase";
+import {requestMediaPermissionsUseCase} from "@/shared/usecases/requestMediaPermissionsUseCase";
+import {getAssetsPageUseCase} from "@/shared/usecases/getAssetsPageUseCase";
 import {deleteAssetsUseCase} from "@/shared/usecases/deleteAssetsUseCase";
 
 /**

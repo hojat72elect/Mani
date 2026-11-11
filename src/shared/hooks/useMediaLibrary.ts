@@ -1,12 +1,12 @@
 import * as MediaLibrary from 'expo-media-library/legacy';
 import {useEffect, useRef, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
-import {GalleryFolder} from "@/services/GalleryFolder";
-import {MediaFilterType} from "@/services/MediaFilterType";
+import {GalleryFolder} from "@/shared/domain/GalleryFolder";
+import {MediaFilterType} from "@/shared/domain/MediaFilterType";
 import {checkMediaPermissionsUseCase} from "@/shared/usecases/checkMediaPermissionsUseCase";
-import {requestMediaPermissionsUseCase} from "@/services/requestMediaPermissionsUseCase";
-import {getFoldersWithCoversUseCase} from "@/services/getFoldersWithCoversUseCase";
-import {getAssetsPageUseCase} from "@/services/getAssetsPageUseCase";
+import {requestMediaPermissionsUseCase} from "@/shared/usecases/requestMediaPermissionsUseCase";
+import {getFoldersWithCoversUseCase} from "@/shared/usecases/getFoldersWithCoversUseCase";
+import {getAssetsPageUseCase} from "@/shared/usecases/getAssetsPageUseCase";
 import {deleteAssetsUseCase} from "@/shared/usecases/deleteAssetsUseCase";
 
 export function useMediaLibrary() {

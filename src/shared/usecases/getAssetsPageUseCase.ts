@@ -1,5 +1,5 @@
 import * as MediaLibrary from 'expo-media-library/legacy';
-import {MediaFilterType} from "@/services/MediaFilterType";
+import {MediaFilterType} from "@/shared/domain/MediaFilterType";
 
 /**
  * Fetch media assets within a specific folder (or all folders) with pagination and media filtering

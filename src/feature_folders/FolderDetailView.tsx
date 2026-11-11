@@ -8,8 +8,8 @@ import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/shared/hooks/useTheme';
 import {MediaGridItem} from '@/shared/ui/MediaGridItem';
 import {Spacing} from "@/shared/ui/Spacing";
-import {GalleryFolder} from "@/services/GalleryFolder";
-import {MediaFilterType} from "@/services/MediaFilterType";
+import {GalleryFolder} from "@/shared/domain/GalleryFolder";
+import {MediaFilterType} from "@/shared/domain/MediaFilterType";
 
 export function FolderDetailView({
                                      folder,

@@ -6,7 +6,7 @@ import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/shared/hooks/useTheme';
 import {Spacing} from "@/shared/ui/Spacing";
-import {GalleryFolder} from "@/services/GalleryFolder";
+import {GalleryFolder} from "@/shared/domain/GalleryFolder";
 
 export function FolderCard({folder, onPress}: {
     folder: GalleryFolder;

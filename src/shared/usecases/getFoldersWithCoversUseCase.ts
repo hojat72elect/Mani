@@ -1,4 +1,4 @@
-import {GalleryFolder} from "@/services/GalleryFolder";
+import {GalleryFolder} from "@/shared/domain/GalleryFolder";
 import * as MediaLibrary from 'expo-media-library/legacy';
 
 /**

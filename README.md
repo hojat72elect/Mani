@@ -1,6 +1,6 @@
 # Mani - Media Gallery App
 
-A clean, modern cross-platform gallery app built with [Expo](https://expo.dev/) and [React Native](https://reactnative.dev/) technologies. Browse your device's visual media (photos and videos).
+A clean, modern cross-platform gallery app built with [Expo](https://expo.dev/) and [React Native](https://reactnative.dev/) technologies. It  allows you to browse your device's visual media (photos and videos).
 
 ## Overview
 
@@ -15,6 +15,7 @@ It organizes photos and videos into folders (albums), lets you filter by media t
 - **Share & delete**: Built-in sharing and deletion of the media
 - **Dark/Light theme**: Adapts to system preferences.
 - **Pagination**: Efficiently handles large media libraries
+- **Supported file formats**: At the  time of writing, this app supports these file extensions: `jpg` and `png`.
 
 ## Tech Stack
 

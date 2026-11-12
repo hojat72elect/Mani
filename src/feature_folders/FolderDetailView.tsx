@@ -173,7 +173,6 @@ export function FolderDetailView({
                 </View>
             ) : (
                 <FlatList
-                    key={`grid-${numColumns}`}
                     data={assets}
                     numColumns={numColumns}
                     keyExtractor={(item) => item.id}
@@ -189,6 +188,9 @@ export function FolderDetailView({
                     ]}
                     onEndReached={onLoadMore}
                     onEndReachedThreshold={0.5}
+                    removeClippedSubviews={true}
+                    maxToRenderPerBatch={10}
+                    windowSize={5}
                     refreshControl={
                         <RefreshControl
                             refreshing={isLoading && assets.length > 0}

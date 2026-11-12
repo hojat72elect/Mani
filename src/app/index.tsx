@@ -105,13 +105,14 @@ export default function FoldersScreen() {
     return (
         <ThemedView style={{flex: 1}}>
             {/*The top bar of the app.*/}
-            <View style={[{
+            <View style={{
                 paddingHorizontal: Spacing.three,
                 paddingBottom: Spacing.two,
                 gap: Spacing.two,
                 borderBottomWidth: 1,
-                borderBottomColor: 'rgba(150, 150, 150, 0.08)'
-            }, {paddingTop: insets.top + Spacing.two}]}>
+                borderBottomColor: 'rgba(150, 150, 150, 0.08)',
+                paddingTop: insets.top + Spacing.two
+            }}>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',

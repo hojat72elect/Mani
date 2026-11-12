@@ -255,6 +255,9 @@ export default function FoldersScreen() {
                         {padding: Spacing.one},
                         {paddingBottom: insets.bottom + 80 + Spacing.four},
                     ]}
+                    removeClippedSubviews={true}
+                    maxToRenderPerBatch={10}
+                    windowSize={5}
                     refreshControl={
                         <RefreshControl
                             refreshing={isLoadingFolders}

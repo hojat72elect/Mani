@@ -86,6 +86,9 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                         }
                     }}
                     keyExtractor={(item) => item.id}
+                    removeClippedSubviews={true}
+                    maxToRenderPerBatch={2}
+                    windowSize={3}
                     renderItem={({item}) => (
                         <Pressable
                             style={{
@@ -103,6 +106,11 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                                 }}
                                 contentFit="contain"
                                 transition={200}
+                                recyclingKey={item.id}
+                                cachePolicy="memory-disk"
+                                placeholder={{blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4'}}
+                                placeholderContentFit="cover"
+                                allowDownscaling={true}
                             />
                             {item.mediaType === 'video' && (
                                 <View style={{

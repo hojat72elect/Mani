@@ -37,6 +37,8 @@ export function MediaGridItem({asset, onPress}: {
                 contentFit="cover"
                 transition={150}
                 recyclingKey={asset.id}
+                cachePolicy="memory-disk"
+                allowDownscaling={true}
             />
 
             {isVideo && (

@@ -9,6 +9,7 @@ import {ThemedText} from '@/shared/ui/ThemedText';
 import {formatMediaDateUseCase} from '@/shared/usecases/formatMediaDateUseCase';
 import {Spacing} from "@/shared/ui/Spacing";
 import {formatVideoDurationUseCase} from "@/shared/usecases/formatVideoDurationUseCase";
+import {VideoPlayer} from '@/shared/ui/VideoPlayer';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -87,47 +88,51 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                     }}
                     keyExtractor={(item) => item.id}
                     removeClippedSubviews={true}
-                    maxToRenderPerBatch={2}
+                    maxToRenderPerBatch={1}
                     windowSize={3}
-                    renderItem={({item}) => (
-                        <Pressable
-                            style={{
-                                width: SCREEN_WIDTH,
-                                height: SCREEN_HEIGHT,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                            onPress={() => setShowControls((prev) => !prev)}>
-                            <Image
-                                source={{uri: item.uri}}
-                                style={{
-                                    width: SCREEN_WIDTH,
-                                    height: SCREEN_HEIGHT
-                                }}
-                                contentFit="contain"
-                                transition={200}
-                                recyclingKey={item.id}
-                                cachePolicy="memory-disk"
-                                placeholder={{blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4'}}
-                                placeholderContentFit="cover"
-                                allowDownscaling={true}
-                            />
-                            {item.mediaType === 'video' && (
+                    renderItem={({item, index}) => {
+                        const isCurrentVideo = item.mediaType === 'video' && index === currentIndex;
+                        const isStaticVideo = item.mediaType === 'video' && index !== currentIndex;
+
+                        // ── Active video: mount the real player (only 1 at a time) ──
+                        if (isCurrentVideo) {
+                            return (
+                                <VideoPlayer
+                                    key={item.id}
+                                    uri={item.uri}
+                                    onToggleControls={() => setShowControls((prev) => !prev)}
+                                />
+                            );
+                        }
+
+                        // ── Neighbouring video slot: static thumbnail + play badge ──
+                        if (isStaticVideo) {
+                            return (
                                 <View style={{
-                                    position: 'absolute',
-                                    alignItems: 'center',
+                                    width: SCREEN_WIDTH,
+                                    height: SCREEN_HEIGHT,
+                                    backgroundColor: '#000',
                                     justifyContent: 'center',
-                                    gap: Spacing.two
+                                    alignItems: 'center'
                                 }}>
+                                    <Image
+                                        source={{uri: item.uri}}
+                                        style={{width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
+                                        contentFit="contain"
+                                        recyclingKey={item.id}
+                                        cachePolicy="memory-disk"
+                                        allowDownscaling={true}
+                                    />
                                     <View style={{
+                                        position: 'absolute',
                                         width: 72,
                                         height: 72,
                                         borderRadius: 36,
-                                        backgroundColor: 'rgba(0, 0, 0, 0.65)',
+                                        backgroundColor: 'rgba(0,0,0,0.65)',
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         borderWidth: 2,
-                                        borderColor: 'rgba(255, 255, 255, 0.4)'
+                                        borderColor: 'rgba(255,255,255,0.4)'
                                     }}>
                                         <SymbolView
                                             name={{ios: 'play.fill', android: 'play_arrow'}}
@@ -135,21 +140,34 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
                                             tintColor="#ffffff"
                                         />
                                     </View>
-                                    <ThemedText style={{
-                                        color: '#ffffff',
-                                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                                        paddingHorizontal: Spacing.three,
-                                        paddingVertical: Spacing.half,
-                                        borderRadius: 16,
-                                        fontSize: 13,
-                                        fontWeight: '600'
-                                    }}>
-                                        Video • {formatVideoDurationUseCase(item.duration)}
-                                    </ThemedText>
                                 </View>
-                            )}
-                        </Pressable>
-                    )}
+                            );
+                        }
+
+                        // ── Photo ──
+                        return (
+                            <Pressable
+                                style={{
+                                    width: SCREEN_WIDTH,
+                                    height: SCREEN_HEIGHT,
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}
+                                onPress={() => setShowControls((prev) => !prev)}>
+                                <Image
+                                    source={{uri: item.uri}}
+                                    style={{width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}
+                                    contentFit="contain"
+                                    transition={200}
+                                    recyclingKey={item.id}
+                                    cachePolicy="memory-disk"
+                                    placeholder={{blurhash: 'L6PZfSi_.AyE_3t7t7R**0o#DgR4'}}
+                                    placeholderContentFit="cover"
+                                    allowDownscaling={true}
+                                />
+                            </Pressable>
+                        );
+                    }}
                 />
 
                 {/* Top App Bar Overlay */}

@@ -11,8 +11,6 @@ import {Spacing} from "@/shared/ui/Spacing";
 import {formatVideoDurationUseCase} from "@/shared/usecases/formatVideoDurationUseCase";
 import {VideoPlayer} from '@/shared/ui/VideoPlayer';
 
-const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
-
 export function MediaViewerModal({visible, assets, initialIndex, onClose, onDeleteAsset, folderTitle,}: {
     visible: boolean;
     assets: MediaLibrary.Asset[];
@@ -21,6 +19,7 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
     onDeleteAsset: (asset: MediaLibrary.Asset) => void;
     folderTitle?: string;
 }) {
+    const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
     const insets = useSafeAreaInsets();
     const [currentIndex, setCurrentIndex] = useState(initialIndex);
     const [showControls, setShowControls] = useState(true);

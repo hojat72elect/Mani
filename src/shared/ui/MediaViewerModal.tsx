@@ -9,7 +9,7 @@ import {ThemedText} from '@/shared/ui/ThemedText';
 import {formatMediaDateUseCase} from '@/shared/usecases/formatMediaDateUseCase';
 import {Spacing} from "@/shared/ui/Spacing";
 import {formatVideoDurationUseCase} from "@/shared/usecases/formatVideoDurationUseCase";
-import {VideoPlayer} from '@/shared/ui/VideoPlayer';
+import {VideoPlayer} from '@/feature_video_player/VideoPlayer';
 
 export function MediaViewerModal({visible, assets, initialIndex, onClose, onDeleteAsset, folderTitle,}: {
     visible: boolean;

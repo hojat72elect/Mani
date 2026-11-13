@@ -4,7 +4,7 @@ import {StatusBar} from 'expo-status-bar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Image} from 'expo-image';
 import {SymbolView} from 'expo-symbols';
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {Asset} from 'expo-media-library/legacy';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {formatMediaDateUseCase} from '@/shared/usecases/formatMediaDateUseCase';
 import {Spacing} from "@/shared/ui/Spacing";
@@ -13,10 +13,10 @@ import {VideoPlayer} from '@/shared/ui/VideoPlayer';
 
 export function MediaViewerModal({visible, assets, initialIndex, onClose, onDeleteAsset, folderTitle,}: {
     visible: boolean;
-    assets: MediaLibrary.Asset[];
+    assets: Asset[];
     initialIndex: number;
     onClose: () => void;
-    onDeleteAsset: (asset: MediaLibrary.Asset) => void;
+    onDeleteAsset: (asset: Asset) => void;
     folderTitle?: string;
 }) {
     const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');

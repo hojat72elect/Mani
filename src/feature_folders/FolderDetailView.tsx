@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {Asset} from 'expo-media-library/legacy';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/shared/hooks/useTheme';
@@ -25,7 +25,7 @@ export function FolderDetailView({
                                      onLoadMore
                                  }: {
     folder: GalleryFolder;
-    assets: MediaLibrary.Asset[];
+    assets: Asset[];
     totalCount: number;
     isLoading: boolean;
     isLoadingMore: boolean;

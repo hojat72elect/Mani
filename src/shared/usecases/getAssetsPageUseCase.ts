@@ -1,4 +1,4 @@
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {Asset, AssetsOptions, getAssetsAsync, MediaType, MediaTypeValue, SortBy} from 'expo-media-library/legacy';
 import {MediaFilterType} from "@/shared/domain/MediaFilterType";
 
 /**
@@ -10,31 +10,31 @@ export async function getAssetsPageUseCase({folderId, mediaFilter = 'all', first
     first?: number;
     after?: string;
 }): Promise<{
-    assets: MediaLibrary.Asset[];
+    assets: Asset[];
     endCursor?: string;
     hasNextPage: boolean;
     totalCount: number;
 }> {
 
-    const mediaTypes: MediaLibrary.MediaTypeValue[] =
+    const mediaTypes: MediaTypeValue[] =
         mediaFilter === 'photo'
-            ? [MediaLibrary.MediaType.photo]
+            ? [MediaType.photo]
             : mediaFilter === 'video'
-                ? [MediaLibrary.MediaType.video]
-                : [MediaLibrary.MediaType.photo, MediaLibrary.MediaType.video];
+                ? [MediaType.video]
+                : [MediaType.photo, MediaType.video];
 
-    const options: MediaLibrary.AssetsOptions = {
+    const options: AssetsOptions = {
         first,
         after,
         mediaType: mediaTypes,
-        sortBy: [MediaLibrary.SortBy.creationTime],
+        sortBy: [SortBy.creationTime],
     };
 
     if (folderId && folderId !== '__all__') {
         options.album = folderId;
     }
 
-    const result = await MediaLibrary.getAssetsAsync(options);
+    const result = await getAssetsAsync(options);
 
     return {
         assets: result.assets,

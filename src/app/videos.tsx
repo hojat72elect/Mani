@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {Asset} from 'expo-media-library/legacy';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/shared/hooks/useTheme';
@@ -26,7 +26,7 @@ export default function VideosScreen() {
     const [permissionStatus, setPermissionStatus] = useState<
         'loading' | 'granted' | 'denied' | 'undetermined'
     >('loading');
-    const [videos, setVideos] = useState<MediaLibrary.Asset[]>([]);
+    const [videos, setVideos] = useState<Asset[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -123,7 +123,7 @@ export default function VideosScreen() {
         }
     }, [permissionStatus]);
 
-    const handleDelete = async (asset: MediaLibrary.Asset) => {
+    const handleDelete = async (asset: Asset) => {
         const success = await deleteAssetsUseCase([asset.id]);
         if (success) {
             setVideos((prev) => prev.filter((a) => a.id !== asset.id));

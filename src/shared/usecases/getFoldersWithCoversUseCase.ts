@@ -1,5 +1,5 @@
 import {GalleryFolder} from "@/shared/domain/GalleryFolder";
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {getAlbumsAsync, getAssetsAsync, MediaType, SortBy} from 'expo-media-library/legacy';
 
 /**
  * Fetch all folders (albums) from the device and attach a preview cover URI for each folder
@@ -10,13 +10,13 @@ export async function getFoldersWithCoversUseCase(): Promise<{
 }> {
 
     // Fetch all albums from device
-    const albums = await MediaLibrary.getAlbumsAsync({includeSmartAlbums: true});
+    const albums = await getAlbumsAsync({includeSmartAlbums: true});
 
     // Query overall device media to create the "All Media" master folder
-    const overallResult = await MediaLibrary.getAssetsAsync({
+    const overallResult = await getAssetsAsync({
         first: 1,
-        mediaType: [MediaLibrary.MediaType.photo, MediaLibrary.MediaType.video],
-        sortBy: [MediaLibrary.SortBy.creationTime],
+        mediaType: [MediaType.photo, MediaType.video],
+        sortBy: [SortBy.creationTime],
     });
 
     const allFolder: GalleryFolder = {
@@ -31,11 +31,11 @@ export async function getFoldersWithCoversUseCase(): Promise<{
     // For each album, fetch its latest asset as a thumbnail cover
     const folderPromises = albums.map(async (album): Promise<GalleryFolder> => {
         try {
-            const coverResult = await MediaLibrary.getAssetsAsync({
+            const coverResult = await getAssetsAsync({
                 album: album.id,
                 first: 1,
-                mediaType: [MediaLibrary.MediaType.photo, MediaLibrary.MediaType.video],
-                sortBy: [MediaLibrary.SortBy.creationTime],
+                mediaType: [MediaType.photo, MediaType.video],
+                sortBy: [SortBy.creationTime],
             });
 
             return {

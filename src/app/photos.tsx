@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, FlatList, Pressable, RefreshControl, View,} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SymbolView} from 'expo-symbols';
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {Asset} from 'expo-media-library/legacy';
 import {ThemedText} from '@/shared/ui/ThemedText';
 import {ThemedView} from '@/shared/ui/ThemedView';
 import {useTheme} from '@/shared/hooks/useTheme';
@@ -27,7 +27,7 @@ export default function PhotosScreen() {
     const [permissionStatus, setPermissionStatus] = useState<
         'loading' | 'granted' | 'denied' | 'undetermined'
     >('loading');
-    const [assets, setAssets] = useState<MediaLibrary.Asset[]>([]);
+    const [assets, setAssets] = useState<Asset[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [mediaFilter, setMediaFilter] = useState<MediaFilterType>('all');
     const [isLoading, setIsLoading] = useState(false);
@@ -131,7 +131,7 @@ export default function PhotosScreen() {
         }
     }, [permissionStatus, mediaFilter]);
 
-    const handleDelete = async (asset: MediaLibrary.Asset) => {
+    const handleDelete = async (asset: Asset) => {
         const success = await deleteAssetsUseCase([asset.id]);
         if (success) {
             setAssets((prev) => prev.filter((a) => a.id !== asset.id));

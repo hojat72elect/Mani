@@ -1,4 +1,4 @@
-import * as MediaLibrary from 'expo-media-library/legacy';
+import {Asset} from 'expo-media-library/legacy';
 import {useEffect, useRef, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
 import {GalleryFolder} from "@/shared/domain/GalleryFolder";
@@ -10,16 +10,14 @@ import {getAssetsPageUseCase} from "@/shared/usecases/getAssetsPageUseCase";
 import {deleteAssetsUseCase} from "@/shared/usecases/deleteAssetsUseCase";
 
 export function useMediaLibrary() {
-    const [permissionStatus, setPermissionStatus] = useState<
-        'loading' | 'granted' | 'denied' | 'undetermined'
-    >('loading');
+    const [permissionStatus, setPermissionStatus] = useState<'loading' | 'granted' | 'denied' | 'undetermined'>('loading');
     const [folders, setFolders] = useState<GalleryFolder[]>([]);
     const [allFolder, setAllFolder] = useState<GalleryFolder | null>(null);
     const [isLoadingFolders, setIsLoadingFolders] = useState(false);
 
     // Active folder view
     const [selectedFolder, setSelectedFolder] = useState<GalleryFolder | null>(null);
-    const [assets, setAssets] = useState<MediaLibrary.Asset[]>([]);
+    const [assets, setAssets] = useState<Asset[]>([]);
     const [mediaFilter, setMediaFilter] = useState<MediaFilterType>('all');
     const [isLoadingAssets, setIsLoadingAssets] = useState(false);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -166,8 +164,7 @@ export function useMediaLibrary() {
         return () => backHandler.remove();
     }, [activeAssetIndex, selectedFolder]);
 
-    // Asset deletion
-    const deleteAsset = async (asset: MediaLibrary.Asset) => {
+    async function deleteAsset(asset: Asset) {
         Alert.alert(
             'Delete Media',
             `Are you sure you want to permanently delete this ${asset.mediaType}?`,
@@ -198,7 +195,7 @@ export function useMediaLibrary() {
                 },
             ]
         );
-    };
+    }
 
     return {
         permissionStatus,

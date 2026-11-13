@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, FlatList, Modal, Platform, Pressable, Share, View,} from 'react-native';
+import {Dimensions, FlatList, Modal, Pressable, Share, View,} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Image} from 'expo-image';
@@ -38,17 +38,17 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
         return null;
     }
 
-    const handleShare = async () => {
+    async function handleShare(){
         try {
             await Share.share({
                 title: currentAsset.filename,
                 url: currentAsset.uri,
-                message: Platform.OS === 'android' ? currentAsset.uri : undefined,
+                message: currentAsset.uri,
             });
         } catch (err) {
             console.warn('Share error', err);
         }
-    };
+    }
 
     const isVideo = currentAsset.mediaType === 'video';
     const megaPixels = currentAsset.width && currentAsset.height

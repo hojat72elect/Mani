@@ -27,6 +27,7 @@
       "package": "com.hojat72elect.mani"
     },
     "plugins": [
+      "expo-video",
       "expo-router",
       [
         "expo-splash-screen",

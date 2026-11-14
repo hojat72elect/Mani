@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Dimensions, FlatList, Modal, Pressable, Share, View,} from 'react-native';
+import {Dimensions, FlatList, Modal, Pressable, View,} from 'react-native';
+import {isAvailableAsync, shareAsync} from 'expo-sharing';
 import {StatusBar} from 'expo-status-bar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Image} from 'expo-image';
@@ -38,15 +39,17 @@ export function MediaViewerModal({visible, assets, initialIndex, onClose, onDele
         return null;
     }
 
-    async function handleShare(){
+    async function handleShare() {
         try {
-            await Share.share({
-                title: currentAsset.filename,
-                url: currentAsset.uri,
-                message: currentAsset.uri,
-            });
+            const isAvailable = await isAvailableAsync();
+            if (!isAvailable) {
+                console.error('Sharing is not available on this platform');
+                return;
+            }
+            await shareAsync(currentAsset.uri);
+            console.log(`Shared successfully : ${currentAsset.uri}`);
         } catch (err) {
-            console.warn('Share error', err);
+            console.error('Share error', err);
         }
     }
 

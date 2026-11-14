@@ -15,7 +15,7 @@ export default function AppTabs() {
             <NativeTabs.Trigger name="photos">
                 <NativeTabs.Trigger.Label>Pictures</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    src={require('@/assets/images/tabIcons/explore.png')}
+                    src={require('@/assets/images/tabIcons/Photos.png')}
                     renderingMode="template"
                 />
             </NativeTabs.Trigger>
@@ -23,7 +23,7 @@ export default function AppTabs() {
             <NativeTabs.Trigger name="index">
                 <NativeTabs.Trigger.Label>Albums</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    src={require('@/assets/images/tabIcons/home.png')}
+                    src={require('@/assets/images/tabIcons/Albums.png')}
                     renderingMode="template"
                 />
             </NativeTabs.Trigger>
@@ -31,7 +31,7 @@ export default function AppTabs() {
             <NativeTabs.Trigger name="videos">
                 <NativeTabs.Trigger.Label>Videos</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    src={require('@/assets/images/tabIcons/explore.png')}
+                    src={require('@/assets/images/tabIcons/Videos.png')}
                     renderingMode="template"
                 />
             </NativeTabs.Trigger>
@@ -39,11 +39,10 @@ export default function AppTabs() {
             <NativeTabs.Trigger name="settings">
                 <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon
-                    src={require('@/assets/images/tabIcons/explore.png')}
+                    src={require('@/assets/images/tabIcons/Settings.png')}
                     renderingMode="template"
                 />
             </NativeTabs.Trigger>
-
 
         </NativeTabs>
     );

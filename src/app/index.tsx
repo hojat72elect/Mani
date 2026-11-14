@@ -13,7 +13,7 @@ import {MediaViewerModal} from '@/shared/ui/MediaViewerModal';
 import {Spacing} from "@/shared/ui/Spacing";
 
 /**
- * The initial page of the app. Shows different folders of photos/videos.
+ * The contents of the `Albums` screen. Shows different folders of photos/videos.
  */
 export default function FoldersScreen() {
     const theme = useTheme();

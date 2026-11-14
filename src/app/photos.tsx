@@ -17,6 +17,7 @@ import {getAssetsPageUseCase} from "@/shared/usecases/getAssetsPageUseCase";
 import {deleteAssetsUseCase} from "@/shared/usecases/deleteAssetsUseCase";
 
 /**
+ * This is the contents of the `Pictures` screen.
  * A big GridView that shows all the photos we have on the device.
  */
 export default function PhotosScreen() {

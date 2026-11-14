@@ -44,7 +44,8 @@
           "savePhotosPermission": "Allow Mani to save photos and videos.",
           "isAccessMediaLocationEnabled": true
         }
-      ]
+      ],
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true,

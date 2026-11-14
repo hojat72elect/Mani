@@ -10,7 +10,8 @@ export default function AppTabs() {
         <NativeTabs
             backgroundColor={colors.background}
             indicatorColor={colors.backgroundElement}
-            labelStyle={{selected: {color: colors.text}}}>
+            labelStyle={{selected: {color: colors.text}}}
+            labelVisibilityMode="labeled">
 
             <NativeTabs.Trigger name="photos">
                 <NativeTabs.Trigger.Label>Pictures</NativeTabs.Trigger.Label>
